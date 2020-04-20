@@ -27,7 +27,7 @@
 -   Include your Dockerfile/source code in the Git repository.
 -   Include with your Linting step both a failed Linting screenshot and a successful Linting screenshot to show the Linter working properly.
 
-# Step 5: Test your pipeline
+## Step 5: Test your pipeline
 
 -   Perform builds on your pipeline.
 -   Verify that your pipeline works as you designed it.
