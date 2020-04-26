@@ -1,4 +1,5 @@
 # Built-in Packages
+from os import getenv
 from urllib.request import urlopen
 
 # 3rd Party Packages
@@ -13,6 +14,11 @@ bp = Blueprint("core", __name__, url_prefix="/")
 
 @bp.route("/")
 def index() -> Response:
+    app_name = getenv("APP_NAME")
+
+    if app_name:
+        return jsonify({"message": f"Hello {app_name}!"})
+
     return jsonify({"message": "Hello World!"})
 
 
