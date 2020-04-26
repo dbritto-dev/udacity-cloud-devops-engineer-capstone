@@ -38,11 +38,13 @@
 ## Continuous Integration
 
 -   [ ] Develop a CI/CD pipeline for micro services applications with either blue/green deployment or rolling deployment.
+    -   [x] Blue/Green Deployment
+    -   [ ] Rolling Deployment
 -   [ ] Develop CI steps as you see fit, but must least typographical checking (aka: **Linting**).
     -   [ ] Security scanning.
     -   [ ] Performance Testing.
-    -   [ ] Integration Testing.
-    -   [ ] Unit Testing.
+    -   [-] Integration Testing.
+    -   [x] Unit Testing.
 
 ## Continuous Deployment
 
