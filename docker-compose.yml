@@ -4,6 +4,7 @@ services:
   flask:
     build: ./flask
     container_name: flask
+    image: minorpatch/capstone-flask
     restart: always
     environment:
       - APP_NAME="Docker App"
@@ -13,6 +14,7 @@ services:
   nginx:
     build: ./nginx
     container_name: nginx
+    image: minorpatch/capstone-nginx
     restart: always
     ports:
       - "80:80"
