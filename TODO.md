@@ -44,6 +44,7 @@
     -   [ ] Security scanning.
     -   [ ] Performance Testing.
     -   [-] Integration Testing.
+    -   [x] Functional Testing
     -   [x] Unit Testing.
 
 ## Continuous Deployment
