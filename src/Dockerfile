@@ -2,7 +2,7 @@ FROM python:3.7
 
 WORKDIR /app
 
-COPY src /app/
+ADD src /app/
 
 RUN make install
 
