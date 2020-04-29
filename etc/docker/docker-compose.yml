@@ -6,17 +6,16 @@ services:
     image: minorpatch/capstone-nginx
     restart: always
     volumes:
-      # - /opt/capstone.io/etc/nginx/:/etc/nginx/conf.d/
-      # - /opt/capstone.io/etc/uswgi/:/etc/uswgi/
-      - /opt/capstone.io/data/logs/:/data/logs/
+      # - /opt/capstone.io/etc/nginx/:/etc/nginx/
+      - /opt/capstone.io/data/logs/:/var/log/nginx/
     ports:
       - "80:80"
-  # flask:
-  #   build: ./flask
-  #   container_name: flask
-  #   image: minorpatch/capstone-flask
-  #   restart: always
-  #   environment:
-  #     - APP_NAME="Docker App"
-  #   expose:
-  #     - 8080
+  flask:
+    build: ./flask
+    container_name: flask
+    image: minorpatch/capstone-flask
+    restart: always
+    environment:
+      - APP_NAME="Docker App"
+    expose:
+      - 8080

@@ -33,4 +33,4 @@ lint:
 	python3 -m pylint --disable=R,C,W1202 flazk
 
 run:
-	python3 -m uswgi app.ini
+	python3 -m uswgi code/uswgi.ini
