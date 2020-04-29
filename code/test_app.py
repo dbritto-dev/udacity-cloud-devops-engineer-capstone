@@ -1,7 +1,5 @@
 # Local Packages
-from app import create_app
-
-app = create_app()
+from app import app
 
 
 def test_index():

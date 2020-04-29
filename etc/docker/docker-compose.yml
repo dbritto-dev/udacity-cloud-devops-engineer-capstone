@@ -1,16 +1,5 @@
 version: "3.8"
 services:
-
-  flask:
-    build: ./src
-    container_name: flask
-    image: minorpatch/capstone-flask
-    restart: always
-    environment:
-      - APP_NAME="Docker App"
-    expose:
-      - 8080
-
   nginx:
     build: ./nginx
     container_name: nginx
@@ -18,3 +7,14 @@ services:
     restart: always
     ports:
       - "80:80"
+
+  flask:
+    build: ./flask
+    container_name: flask
+    image: minorpatch/capstone-flask
+    restart: always
+    environment:
+      - APP_NAME="Docker App"
+    expose:
+      - 8080
+    depends_on: nginx
