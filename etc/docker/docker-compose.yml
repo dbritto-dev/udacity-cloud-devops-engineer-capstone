@@ -5,10 +5,10 @@ services:
     container_name: nginx
     image: minorpatch/capstone-nginx
     restart: always
-    # volumes:
-    #   - /opt/capstone.io/etc/nginx/:/etc/nginx/conf.d/
-    #   - /opt/capstone.io/etc/uswgi/:/etc/uswgi/
-    #   - /opt/capstone.io/data/logs/:/data/logs/
+    volumes:
+      # - /opt/capstone.io/etc/nginx/:/etc/nginx/conf.d/
+      # - /opt/capstone.io/etc/uswgi/:/etc/uswgi/
+      - /opt/capstone.io/data/logs/:/data/logs/
     ports:
       - "80:80"
   # flask:
