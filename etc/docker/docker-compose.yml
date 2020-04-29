@@ -6,7 +6,7 @@ services:
     image: minorpatch/capstone-nginx
     restart: always
     volumes:
-      # - /opt/capstone.io/etc/nginx/:/etc/nginx/
+      - /opt/capstone.io/etc/nginx/:/etc/nginx/
       - /opt/capstone.io/data/logs/:/var/log/nginx/
     ports:
       - "80:80"
