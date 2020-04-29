@@ -3,17 +3,17 @@ from os import getenv
 from urllib.request import urlopen
 
 # 3rd Party Packages
-from flask import Flask, jsonify
+from flask import Blueprint, jsonify, Response
 from bs4 import BeautifulSoup
 
 # Local Packages
 from .helpers import slugify, string_to_integer, parse_date
 
-app = Flask(__name__)
+bp = Blueprint("core", __name__, url_prefix="/")
 
 
-@app.route("/")
-def index():
+@bp.route("/")
+def index() -> Response:
     app_name = getenv("APP_NAME")
 
     if app_name:
@@ -22,8 +22,8 @@ def index():
     return jsonify({"message": "Hello World!"})
 
 
-@app.route("/world-stats")
-def world_stats():
+@bp.route("/world-stats")
+def world_stats() -> Response:
     world_stats_url = "https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data#covid19-container"
 
     with urlopen(world_stats_url) as response:
@@ -64,7 +64,3 @@ def world_stats():
         ).isoformat()
 
         return jsonify({"stats": stats, "updatedAt": updated_at})
-
-
-if __name__ == "__main__":
-    app.run()

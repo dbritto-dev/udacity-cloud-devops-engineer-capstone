@@ -1,5 +1,7 @@
 # Local Packages
-from app import app
+from capstone import create_app
+
+app = create_app()
 
 
 def test_index():
@@ -17,5 +19,4 @@ def test_world_stats():
 
         assert res.status_code == 200
         assert res.mimetype == "application/json"
-        assert len(res.json.get("stats", {}).keys()) == 218
         assert res.json.get("updatedAt") is not None

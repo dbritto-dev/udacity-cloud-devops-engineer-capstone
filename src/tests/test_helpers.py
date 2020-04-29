@@ -5,7 +5,7 @@ from datetime import datetime
 from pytest import mark
 
 # Local Packages
-from . import helpers
+from capstone import helpers
 
 
 @mark.parametrize("empty_case", [(None, "none"), ("", "")])
