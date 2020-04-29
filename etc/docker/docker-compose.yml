@@ -15,7 +15,7 @@ services:
     container_name: flask
     image: minorpatch/capstone-flask
     restart: always
-    volums:
+    volumes:
       - /opt/capstone.io/code/:/app/
     environment:
       - APP_NAME="Docker App"
