@@ -11,6 +11,6 @@ RUN pip3 install -r requirements.txt
 
 FROM builder
 
-RUN ls -la /opt
+RUN ls -la /app
 
-CMD ["python3", "/opt/capstone.io/code/run.py"]
+CMD ["python3", "run.py"]
