@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY . requirements.txt /app/
 
-RUN pip3 install -r requirements.txt
+RUN apk add build-essential python3-dev &&\
+    pip3 install -r requirements.txt
 
 
 
 
 FROM builder
 
-CMD ["python3", "-m", "uswgi", "/opt/capstone.io/code/uswgi.ini"]
+CMD ["python3", "-m", "uswgi", "/opt/capstone.io/etc/uwsgi/uwsgi.ini"]
