@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY . requirements.txt /app/
 
-RUN apk add python3-dev gcc libc-dev &&\
-    pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 
 
