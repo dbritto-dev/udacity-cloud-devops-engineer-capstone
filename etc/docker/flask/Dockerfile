@@ -11,6 +11,4 @@ RUN pip3 install -r requirements.txt
 
 FROM builder
 
-RUN ls -la /app
-
 CMD ["python3", "run.py"]
