@@ -12,4 +12,4 @@ RUN apk add python3-dev gcc libc-dev &&\
 
 FROM builder
 
-CMD ["python3", "-m", "uswgi", "/opt/capstone.io/etc/uwsgi/uwsgi.ini"]
+CMD ["python3", "/opt/capstone.io/code/run.py"]
