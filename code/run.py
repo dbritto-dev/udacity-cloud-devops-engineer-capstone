@@ -1,8 +1,5 @@
 from waitress import serve
-from capstone.app import create_app
-
-app = create_app()
-
+from capstone import create_app
 
 if __name__ == "__main__":
-    serve(app, port=8080)
+    serve(create_app, port=8080)

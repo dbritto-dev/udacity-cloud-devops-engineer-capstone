@@ -15,13 +15,13 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python3 -m coverage run -m pytest -vv
-	python3 -m coverage report
+	python -m coverage run -m pytest -vv
+	python -m coverage report
 
 test-artifacts:
-	python3 -m coverage run -m pytest --junitxml=junit.xml
-	python3 -m coverage xml -m
+	python -m coverage run -m pytest --junitxml=junit.xml
+	python -m coverage xml -m
 
 lint:
 	hadolint Dockerfile
-	python3 -m pylint --disable=R,C,W1202 flazk
+	python -m pylint --disable=R,C,W1202 flazk

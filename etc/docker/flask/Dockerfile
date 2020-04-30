@@ -4,11 +4,13 @@ WORKDIR /app
 
 COPY . requirements.txt /app/
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 
 
 
 FROM builder
 
-CMD ["python3", "run.py"]
+ENTRYPOINT [ "python" ]
+
+CMD [ "run.py" ]
