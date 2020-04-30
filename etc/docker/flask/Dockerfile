@@ -2,8 +2,6 @@ FROM python:3.7.7-alpine
 
 WORKDIR /app
 
-COPY /opt/capstone.io/Makefile /app/
-
-RUN make install
+RUN pip3 install -e .
 
 CMD ["python3", "-m", "uswgi", "uswgi.ini"]
