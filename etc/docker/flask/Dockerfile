@@ -4,4 +4,6 @@ WORKDIR /app
 
 RUN pip3 install -e .
 
-CMD ["python3", "-m", "uswgi", "uswgi.ini"]
+ENTRYPOINT python3
+
+CMD ["uswgi", "uswgi.ini"]
