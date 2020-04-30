@@ -2,7 +2,7 @@ FROM python:3.7.7-alpine
 
 WORKDIR /app
 
-RUN ls -la /app
+COPY /opt/capstone.io/code/requirements*.txt /app/
 
 ENTRYPOINT python3
 
