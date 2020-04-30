@@ -1,9 +1,3 @@
-install:
-	pip3 install -e .
-
-install-dev:
-	pip3 install -e ".[dev]"
-
 install-docker-compose:
 	wget -O /bin/docker-compose https://github.com/docker/compose/releases/download/1.25.5/docker-compose-Linux-x86_64
 	chmod +x /bin/docker-compose
