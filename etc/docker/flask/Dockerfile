@@ -1,11 +1,14 @@
-FROM python:3.7.7-alpine
+FROM python:3.7.7-alpine AS builder
 
 WORKDIR /app
 
-RUN ls -la .
-RUN ls -la /
-RUN ls -la /opt
+COPY . requirements.txt /app/
 
-ENTRYPOINT python3
+RUN pip3 install -r requerirements.txt
 
-CMD ["uswgi", "uswgi.ini"]
+
+
+
+FROM builder
+
+CMD ["python3", "-m", "uswgi", "/opt/capstone.io/code/uswgi.ini"]
