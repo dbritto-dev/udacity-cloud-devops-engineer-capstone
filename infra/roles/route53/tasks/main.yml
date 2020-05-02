@@ -1,3 +1,13 @@
+# Create a health-check for host1.example.com and use it in record
+- route53_health_check:
+    state: present
+    fqdn: www.capstone.io
+    type: HTTP
+    resource_path: /
+    request_interval: 15
+    failure_threshold: 2
+  register: hc
+
 - name: change route53
   route53:
     state: present
@@ -9,6 +19,6 @@
     identifier: server1
     private_zone: yes
     overwrite: yes
-    value: "{{ NEW_ALIAS }}"
+    value: "{{ elb.dns_name }}"
     wait: yes
-    health_check: "13f098e2-9655-4c35-9cab-40b94664b161"
+    health_check: "{{ hc.health_check.id }}"
