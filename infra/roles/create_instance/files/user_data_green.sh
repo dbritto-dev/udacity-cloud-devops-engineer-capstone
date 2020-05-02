@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e -x
-export DEBIAN_FRONTEND=noninteractive
-sudo locale-gen pt_BR.UTF-8
-sudo apt-get install -y nginx
+sudo apt install nginx -y
+
 cat > /etc/nginx/sites-enabled/default << EOF
 server {
     #listen   80; ## listen for ipv4; this line is default and implied
@@ -19,6 +18,7 @@ server {
     }
 }
 EOF
+
 cat > /var/www/html/index.html << HEREDOC
 <!DOCTYPE html>
 <html>
@@ -27,5 +27,6 @@ cat > /var/www/html/index.html << HEREDOC
 </body>
 </html>
 HEREDOC
+
 sudo systemctl enable nginx
 sudo systemctl start nginx
