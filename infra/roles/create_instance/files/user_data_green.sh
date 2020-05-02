@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e -x
-sudo apt install nginx -y
+sudo apt update -y && sudo apt install nginx -y
 
 # cat > /etc/nginx/sites-enabled/default << EOF
 # server {
