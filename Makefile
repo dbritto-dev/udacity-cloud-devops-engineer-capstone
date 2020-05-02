@@ -24,4 +24,4 @@ test-artifacts:
 
 lint:
 	hadolint Dockerfile
-	python -m pylint --disable=R,C,W1202 flazk
+	python -m pylint --disable=R,C,W1202
