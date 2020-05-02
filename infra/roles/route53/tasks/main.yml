@@ -1,4 +1,3 @@
-# Create a health-check for host1.example.com and use it in record
 - route53_health_check:
     state: present
     fqdn: www.capstone.io
