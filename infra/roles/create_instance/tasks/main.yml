@@ -15,7 +15,7 @@
 - name: Create EC2 instances
   ec2:
     key_name: Jenkins_demo
-    instance_type: t2.nano
+    instance_type: t2.micro
     image: ami-0986c2ac728528ac2
     user_data: "{{ USERDATA }}"
     region: us-east-2
