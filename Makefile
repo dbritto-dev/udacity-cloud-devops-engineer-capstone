@@ -15,8 +15,8 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python3 -m coverage run -m pytest -vv
-	python3 -m coverage report
+	python3 -m coverage run -m pytest -vv code/**/*.py
+	python3 -m coverage report code/**/*.py
 
 test-artifacts:
 	python3 -m coverage run -m pytest --junitxml=junit.xml

@@ -1,7 +1,11 @@
 [run]
 branch = True
-source = src
-omit = src/run.py
+source = code
+omit =
+    code/run.py
+    code/tests/performance.py
 
 [report]
-omit = src/run.py
+omit =
+    code/run.py
+    code/tests/performance.py

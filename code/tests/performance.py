@@ -2,7 +2,11 @@ from locust import HttpLocust, TaskSet, between
 
 
 def index(l):
-    l.client.get("/asd")
+    l.client.get("/")
+
+
+def world_stats(l):
+    l.client.get("/world-stats")
 
 
 class UserBehavior(TaskSet):
