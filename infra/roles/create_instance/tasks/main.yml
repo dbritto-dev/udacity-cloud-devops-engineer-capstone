@@ -23,7 +23,7 @@
       - sg-090a9c6144ee79c68
     wait: yes
     instance_tags:
-      Name: web_server
+      Name: Capstone Server
       application: "{{ application }}"
     exact_count: 2
     count_tag:
