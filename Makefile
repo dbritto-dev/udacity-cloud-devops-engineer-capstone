@@ -32,3 +32,6 @@ lint:
 
 run:
 	python3 ./code/run.py
+
+run-ci:
+	python3 ./code/run-ci.py
