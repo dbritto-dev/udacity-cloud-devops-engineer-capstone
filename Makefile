@@ -23,7 +23,7 @@ test-artifacts:
 	python3 -m coverage xml -m
 
 performance-test:
-	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 30s
+	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
 
 lint:
 	docker-compose -f ./etc/docker/docker-compose.yml config

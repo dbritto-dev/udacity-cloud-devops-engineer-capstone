@@ -21,6 +21,7 @@ pipeline {
 
     stage('Performace Testing') {
         steps {
+            sh 'python3 ./code/run.py'
             sh 'make performance-test'
         }
     }

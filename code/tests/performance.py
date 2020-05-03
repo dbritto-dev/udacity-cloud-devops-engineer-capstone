@@ -10,7 +10,7 @@ def world_stats(l):
 
 
 class UserBehavior(TaskSet):
-    tasks = {index: 1}
+    tasks = {index: 1, world_stats: 1}
 
 
 class WebsiteUser(HttpLocust):
