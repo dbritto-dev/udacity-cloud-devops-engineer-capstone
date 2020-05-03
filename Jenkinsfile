@@ -13,10 +13,21 @@ pipeline {
         }
     }
 
-    stage('Testing') {
+    stage('Security Testing') {
+        steps {
+            aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+        }
+    }
+
+    stage('Performace Testing') {
+        steps {
+            sh 'make performance-test'
+        }
+    }
+
+    stage('General Testing') {
         steps {
             sh 'make test'
-            aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
         }
     }
 
