@@ -3,7 +3,7 @@
     fqdn: www.capstone.io
     type: HTTP
     resource_path: /
-    request_interval: 15
+    request_interval: 10
     failure_threshold: 2
   register: hc
 
