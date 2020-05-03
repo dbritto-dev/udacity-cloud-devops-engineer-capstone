@@ -23,7 +23,7 @@
       - sg-012f8ccdca4a2047f
     wait: yes
     instance_tags:
-      Name: Capstone Server
+      Name: Capstone Server (Green)
       application: "{{ application }}"
     exact_count: 2
     count_tag:
