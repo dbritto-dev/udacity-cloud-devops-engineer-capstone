@@ -34,7 +34,6 @@
   wait_for:
     host: "{{ item.public_ip }}"
     port: 80
-    timeout: 180
   with_items: "{{ ec2_instances.tagged_instances }}"
   ignore_errors: True
 
