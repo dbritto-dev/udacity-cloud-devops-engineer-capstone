@@ -3,7 +3,7 @@
     state: present
     fqdn: www.capstone.io
     type: HTTP
-    resource_path: /
+    resource_path: /index.html
     request_interval: 10
     failure_threshold: 2
   register: hc
