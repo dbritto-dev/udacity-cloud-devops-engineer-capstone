@@ -18,6 +18,6 @@
     identifier: server1
     private_zone: yes
     overwrite: yes
-    value: "{{ NEW_ALIAS }}"
+    value: "{{ ELB_DNS_NAME }}"
     wait: yes
     health_check: "{{ hc.health_check.id }}"

@@ -1,6 +1,6 @@
 - name: Create the ELB only listening over port 80
   ec2_elb_lb:
-    name: "{{ ELBNAME }}"
+    name: "{{ ELB_NAME }}"
     state: present
     region: us-east-2
     zones:
@@ -41,7 +41,7 @@
 - name: Add each EC2 instance to the ELB
   ec2_elb:
     state: present
-    ec2_elbs: "{{ ELBNAME }}"
+    ec2_elbs: "{{ ELB_NAME }}"
     region: "{{ item.region }}"
     instance_id: "{{ item.id }}"
   with_items: "{{ ec2_instances.tagged_instances }}"

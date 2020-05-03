@@ -1,1 +1,1 @@
-NEW_ALIAS: "{{ elb.dns_name }}"
+ELB_DNS_NAME: "{{ elb.dns_name }}"
