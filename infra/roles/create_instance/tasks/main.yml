@@ -25,7 +25,7 @@
     instance_tags:
       Name: Capstone Server
       application: "{{ application }}"
-    exact_count: 2
+    exact_count: 1
     count_tag:
       application: "{{ application }}"
   register: ec2_instances
