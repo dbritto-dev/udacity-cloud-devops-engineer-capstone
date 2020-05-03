@@ -19,6 +19,6 @@
     identifier: server1
     private_zone: yes
     overwrite: yes
-    value: "{{ ELB_DNS_NAME }}"
+    value: "{{ elb.elb.dns_name }}"
     wait: yes
     health_check: "{{ hc.health_check.id }}"
