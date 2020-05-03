@@ -20,7 +20,7 @@
     user_data: "{{ USERDATA }}"
     region: us-east-2
     group_id:
-      - sg-0c93978b488c8e844
+      - sg-012f8ccdca4a2047f
     wait: yes
     instance_tags:
       Name: Capstone Server
