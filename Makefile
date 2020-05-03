@@ -29,3 +29,6 @@ lint:
 	docker-compose -f ./etc/docker/docker-compose.yml config
 	hadolint ./etc/docker/**/Dockerfile
 	python3 -m pylint --disable=R,C,W1202 ./code/**/**.py
+
+run:
+	python3 ./code/run.py
