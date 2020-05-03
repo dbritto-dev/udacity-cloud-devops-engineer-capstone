@@ -2,10 +2,10 @@
   ec2_elb_lb:
     name: "{{ ELB_NAME }}"
     state: present
-    region: us-east-2
+    region: us-east-1
     zones:
-      - us-east-2a
-      - us-east-2b
+      - us-east-1a
+      - us-east-1b
     listeners:
       - protocol: http
         load_balancer_port: 80
@@ -18,14 +18,14 @@
     instance_type: t2.micro
     image: ami-0986c2ac728528ac2
     user_data: "{{ USERDATA }}"
-    region: us-east-2
+    region: us-east-1
     group_id:
-      - sg-090a9c6144ee79c68
+      - sg-0c93978b488c8e844
     wait: yes
     instance_tags:
       Name: Capstone Server
       application: "{{ application }}"
-    exact_count: 1
+    exact_count: 2
     count_tag:
       application: "{{ application }}"
   register: ec2_instances
