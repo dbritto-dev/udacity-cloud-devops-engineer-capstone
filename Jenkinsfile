@@ -5,6 +5,7 @@ pipeline {
         steps {
             sh 'python3 -m venv ~/.devops'
             sh '. ~/.devops/bin/activate'
+            sh 'pip --version'
             sh 'pip install -r ./etc/docker/flask/requirements-ci.txt'
         }
     }
