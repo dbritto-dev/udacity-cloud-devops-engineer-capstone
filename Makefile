@@ -23,5 +23,6 @@ test-artifacts:
 	python -m coverage xml -m
 
 lint:
-	hadolint Dockerfile
-	python -m pylint --disable=R,C,W1202
+	docker-compose -f ./etc/docker/docker-compose.yml config
+	hadolint ./etc/docker/**/Dockerfile
+	python -m pylint --disable=R,C,W1202 ./code/**/**.py
