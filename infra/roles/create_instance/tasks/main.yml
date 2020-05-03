@@ -4,8 +4,8 @@
     state: present
     region: us-east-2
     zones:
+      - us-east-2a
       - us-east-2b
-      - us-east-2c
     listeners:
       - protocol: http
         load_balancer_port: 80
