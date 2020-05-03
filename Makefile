@@ -15,14 +15,14 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python -m coverage run -m pytest -vv
-	python -m coverage report
+	python3 -m coverage run -m pytest -vv
+	python3 -m coverage report
 
 test-artifacts:
-	python -m coverage run -m pytest --junitxml=junit.xml
-	python -m coverage xml -m
+	python3 -m coverage run -m pytest --junitxml=junit.xml
+	python3 -m coverage xml -m
 
 lint:
 	docker-compose -f ./etc/docker/docker-compose.yml config
 	hadolint ./etc/docker/**/Dockerfile
-	python -m pylint --disable=R,C,W1202 ./code/**/**.py
+	python3 -m pylint --disable=R,C,W1202 ./code/**/**.py

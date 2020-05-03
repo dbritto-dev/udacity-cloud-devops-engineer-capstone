@@ -3,24 +3,18 @@ pipeline {
   stages {
     stage('Build') {
         steps {
-            sh 'python3 -m venv ~/.devops'
-            sh """
-                . ~/.devops/bin/activate
-                pip install -r ./etc/docker/flask/requirements-ci.txt
-            """
+            sh 'pip3 install -r ./etc/docker/flask/requirements-ci.txt'
         }
     }
 
     stage('Linting') {
         steps {
-            sh '. ~/.devops/bin/activate'
             sh 'make lint'
         }
     }
 
     stage('Testing') {
         steps {
-            sh 'source ~/.devops/bin/activate'
             sh 'make test'
             aquaMicroscanner imageName: 'alpine:latest', notCompleted: 'exit 1', onDisallowed: 'fail'
         }
