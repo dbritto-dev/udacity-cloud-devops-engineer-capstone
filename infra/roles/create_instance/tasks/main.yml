@@ -43,4 +43,5 @@
     ec2_elbs: "{{ ELB_NAME }}"
     region: "{{ item.region }}"
     instance_id: "{{ item.id }}"
+    wait: "no"
   with_items: "{{ ec2_instances.tagged_instances }}"
