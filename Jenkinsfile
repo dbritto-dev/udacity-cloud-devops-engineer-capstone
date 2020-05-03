@@ -5,13 +5,13 @@ pipeline {
         steps {
             sh 'python3 -m venv ~/.devops'
             sh '. ~/.devops/bin/activate'
-            sh 'pip install -r ./etc/docker/requirements-dev.txt'
+            sh 'pip install -r ./etc/docker/flask/requirements-dev.txt'
         }
     }
 
     stage('Linting') {
         steps {
-            sh 'source ~/.devops/bin/activate'
+            sh '. ~/.devops/bin/activate'
             sh 'make lint'
         }
     }
