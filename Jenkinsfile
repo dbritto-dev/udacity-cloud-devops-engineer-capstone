@@ -16,7 +16,7 @@ pipeline {
     stage('Testing') {
         steps {
             sh 'make test'
-            aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail'
+            aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
         }
     }
 
