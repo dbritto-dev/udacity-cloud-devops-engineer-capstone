@@ -4,3 +4,4 @@ black
 pylint
 pytest
 coverage
+locust
