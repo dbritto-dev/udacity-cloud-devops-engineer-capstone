@@ -13,7 +13,7 @@
     state: present
     zone: capstone.io
     record: www.capstone.io
-    failover: PRIMARY
+    failover: SECONDARY
     type: CNAME
     ttl: 30
     identifier: server1
