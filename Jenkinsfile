@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
         steps {
             sh 'python3 -m venv ~/.devops'
-            sh 'source ~/.devops/bin/activate'
+            sh '. ~/.devops/bin/activate'
             sh 'pip install -r ./etc/docker/requirements-dev.txt'
         }
     }
