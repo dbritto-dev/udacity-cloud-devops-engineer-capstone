@@ -35,4 +35,4 @@ run:
 
 run-ci:
 	docker build -f ./etc/docker/flask/Dockerfile -t app ./etc/docker/flask
-	docker run -d --rm --mount "type=bind,source=$(pwd)/code,targert=/app" -p 8081:8080 app
+	docker run -d --rm --mount "type=bind,source=$(pwd)/code,target=/app" -p 8081:8080 app
