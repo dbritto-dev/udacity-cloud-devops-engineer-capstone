@@ -34,6 +34,6 @@ run:
 	python3 ./code/run.py
 
 run-ci:
-	docker image prune -af
-	docker build -f ./etc/docker/flask/Dockerfile -t app ./etc/docker/flask
-	docker run -d --rm --mount "type=bind,source=$(pwd)/code,target=/app" -p 8081:8080 app
+	docker rm $(docker ps -a -q) -f
+	docker build -f ./etc/docker/ci/Dockerfile -t app ./etc/docker/ci
+	docker run -d --mount "type=bind,source=$(pwd)/code,target=/app" -p 8081:8080 app

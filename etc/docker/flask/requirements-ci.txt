@@ -1,6 +1,0 @@
--r requirements.txt
-
-pylint
-pytest
-coverage
-locust
