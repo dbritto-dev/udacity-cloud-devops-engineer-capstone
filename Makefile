@@ -35,4 +35,4 @@ run:
 
 run-ci:
 	docker build -f ./etc/docker/flask/Dockerfile -t app ./etc/docker/flask
-	docker run -p 8080:8081 app
+	docker run -p 8081:8080 app
