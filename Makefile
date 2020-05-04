@@ -19,8 +19,8 @@ test:
 	python3 -m coverage report ./code/**/*.py
 
 test-artifacts:
-	python3 -m coverage run -m pytest --junitxml=junit.xml
-	python3 -m coverage xml -m
+	python3 -m coverage run -m pytest --junitxml=reports/junit.xml
+	python3 -m coverage xml -o reports/coverage.xml
 
 performance-test:
 	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m

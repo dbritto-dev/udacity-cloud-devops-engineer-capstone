@@ -1,6 +1,6 @@
 pipeline {
-  agent any
-  stages {
+    agent any
+    stages {
     stage('Build') {
         steps {
             sh 'pip3 install -r ./etc/docker/flask/requirements-ci.txt'
@@ -28,24 +28,32 @@ pipeline {
     stage('General Testing') {
         steps {
             sh 'make test'
+            sh 'make test-artifacts'
         }
     }
 
     stage('Deploy') {
-      steps {
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-static', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            sh """
-                mkdir -p ~/.aws
-                echo "[default]" >~/.aws/credentials
-                echo "[default]" >~/.boto
-                echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >>~/.boto
-                echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}">>~/.boto
-                echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >>~/.aws/credentials
-                echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}">>~/.aws/credentials
-            """
+        steps {
+            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-static', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                sh """
+                    mkdir -p ~/.aws
+                    echo "[default]" >~/.aws/credentials
+                    echo "[default]" >~/.boto
+                    echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >>~/.boto
+                    echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}">>~/.boto
+                    echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >>~/.aws/credentials
+                    echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}">>~/.aws/credentials
+                """
+            }
+            ansiblePlaybook playbook: 'infra/main.yml', inventory: 'infra/inventory'
         }
-        ansiblePlaybook playbook: 'infra/main.yml', inventory: 'infra/inventory'
-      }
     }
-  }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'htmlcov/**/*', fingerprint: true
+            junit 'reports/**/*.xml'
+        }
+    }
 }
