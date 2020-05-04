@@ -52,7 +52,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'htmlcov/**/*', fingerprint: true
+            archive 'htmlcov/**/*'
             junit 'reports/**/*.xml'
         }
     }
