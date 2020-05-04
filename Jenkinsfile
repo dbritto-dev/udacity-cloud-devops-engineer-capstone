@@ -21,7 +21,6 @@ pipeline {
 
     stage('Performace Testing') {
         steps {
-            sh 'make run-ci'
             sh 'make performance-test'
         }
     }
