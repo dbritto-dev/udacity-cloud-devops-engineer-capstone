@@ -34,6 +34,6 @@ run:
 	python3 ./code/run.py
 
 run-ci:
-	docker rm $(docker ps -aq) -f > /dev/null 2>&1
+	docker rm $(docker ps -aq) -f || true
 	docker build -f ./etc/docker/ci/Dockerfile -t app ./etc/docker/ci
 	docker run -d --mount "type=bind,source=$(pwd)/code,target=/app" -p 8081:8080 app
