@@ -34,5 +34,5 @@ run:
 	python3 ./code/run.py
 
 run-ci:
-	docker build -f ./etc/docker/flask/Dockerfile -t app .
+	docker build -f ./etc/docker/flask/Dockerfile -t app ./etc/docker/flask
 	docker run -p 8080:8081 app
