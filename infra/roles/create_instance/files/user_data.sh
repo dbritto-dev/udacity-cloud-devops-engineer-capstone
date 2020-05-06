@@ -1,7 +1,9 @@
 #!/bin/bash
 
+sudo apt update -y
+
 # Installing git
-sudo apt update -y && sudo apt install git -y
+sudo apt install git -y
 
 # Installing docker
 sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
@@ -19,11 +21,10 @@ newgrp docker
 sudo apt install docker-compose -y
 
 # Installing kubernetes
-sudo apt update -y && sudo apt install -y apt-transport-https
+sudo apt install apt-transport-https -y
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt update -y
-sudo apt install -y kubectl
+sudo apt update -y && sudo apt install kubectl -y
 
 cd /opt && sudo git clone https://github.com/danilobrinu/udacity-cloud-devops-engineer-project-5.git capstone.io
 cd /opt/capstone.io && docker stack deploy --orchestrator=kubernetes -c ./etc/docker/docker-compose.yml capstone
