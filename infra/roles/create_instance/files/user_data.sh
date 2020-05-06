@@ -16,8 +16,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 # Installing docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
-sudo chmod +x /usr/bin/docker-compose
+sudo apt install docker-compose -y
 
 # Installing kubernetes
 sudo apt update -y && sudo apt install -y apt-transport-https
