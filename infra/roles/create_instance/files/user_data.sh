@@ -16,8 +16,6 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt update -y && sudo apt install docker-ce docker-ce-cli containerd.io -y
-sudo usermod -aG docker $USER
-newgrp docker
 
 # Installing docker-compose
 echo 'Installing Docker Compose'
