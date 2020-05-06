@@ -31,6 +31,3 @@ sudo cd /opt/capstone.io && docker stack deploy --orchestrator=kubernetes -c ./e
 
 
 echo '<p style="color:blue">blue.</p>' > /var/www/html/index.html
-
-sudo systemctl enable nginx
-sudo systemctl start nginx
