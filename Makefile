@@ -32,7 +32,7 @@ lint:
 	python3 -m pylint --disable=R,C,W1202 ./code/**/**.py
 
 build:
-	docker-compose -f ./etc/docker/docker-compose.yml --parallel
+	docker-compose -f ./etc/docker/docker-compose.yml build
 
 publish:
 	echo 'publishing docker images'
