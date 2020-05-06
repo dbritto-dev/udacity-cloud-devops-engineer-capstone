@@ -26,8 +26,6 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt update -y && sudo apt install kubectl -y
 
+# Running kubernetes
 cd /opt && sudo git clone https://github.com/danilobrinu/udacity-cloud-devops-engineer-project-5.git capstone.io
 cd /opt/capstone.io && docker stack deploy --orchestrator=kubernetes -c ./etc/docker/docker-compose.yml capstone
-
-
-echo '<p style="color:blue">blue.</p>' > /var/www/html/index.html
