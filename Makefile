@@ -19,9 +19,9 @@ test:
 	python3 -m coverage report ./code/**/*.py
 
 test-artifacts:
-	python3 -m coverage run -m pytest --junitxml=reports/junit.xml
-	python3 -m coverage xml -o reports/coverage.xml
-	python3 -m coverage html
+	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	python3 -m coverage xml -o reports/junit/coverage.xml
+	python3 -m coverage html -d reports/web
 
 performance-test:
 	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
@@ -30,6 +30,12 @@ lint:
 	docker-compose -f ./etc/docker/docker-compose.yml config
 	hadolint ./etc/docker/**/Dockerfile
 	python3 -m pylint --disable=R,C,W1202 ./code/**/**.py
+
+build:
+	docker-compose -f ./etc/docker/docker-compose.yml --parallel
+
+publish:
+	echo 'publishing docker images'
 
 run:
 	python3 ./code/run.py
