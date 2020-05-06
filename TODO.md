@@ -49,7 +49,7 @@
 
 ## Continuous Deployment
 
--   [ ] Push the built Docker container(s) to the Docker repository.
--   [ ] Deploy these Docker container(s) to a small Kubernetes cluster.
+-   [x] Push the built Docker container(s) to the Docker repository.
+-   [x] Deploy these Docker container(s) to a small Kubernetes cluster.
 -   [ ] Deploy your Kubernetes cluster, using Ansible or Cloudformation.
-    -   [ ] Preferably, run these from within Jenkins as an independent pipeline.
+    -   [x] Preferably, run these from within Jenkins as an independent pipeline.
