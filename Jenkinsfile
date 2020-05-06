@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_USER = credentials('docker-user')
+        DOCKER_PASSWORD = credentials('docker-password')
+    }
+
     stages {
         stage('Setup') {
             steps {
@@ -41,7 +46,7 @@ pipeline {
 
         stage('Publish') {
             steps {
-                sh 'sudo make publish'
+                sh 'make publish'
             }
         }
 
