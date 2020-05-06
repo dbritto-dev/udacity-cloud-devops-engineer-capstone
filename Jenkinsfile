@@ -41,7 +41,7 @@ pipeline {
 
         stage('Publish') {
             steps {
-                sh 'make publish'
+                sh 'sudo make publish'
             }
         }
 
