@@ -35,7 +35,7 @@ build:
 	docker-compose -f ./etc/docker/docker-compose.yml build
 
 publish:
-	docker login
+	docker login docker.io
 	docker-compose -f ./etc/docker/docker-compose.yml push
 
 run:
