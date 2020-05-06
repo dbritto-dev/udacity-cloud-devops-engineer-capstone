@@ -35,7 +35,7 @@ build:
 	docker-compose -f ./etc/docker/docker-compose.yml build
 
 publish:
-	echo 'publishing docker images'
+	docker-compose -f ./etc/docker/docker-compose.yml push
 
 run:
 	python3 ./code/run.py
