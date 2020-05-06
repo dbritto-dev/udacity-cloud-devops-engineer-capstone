@@ -3,9 +3,11 @@
 sudo apt update -y
 
 # Installing git
+echo 'Installing Git'
 sudo apt install git -y
 
 # Installing docker
+echo 'Installing Docker'
 sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
@@ -18,9 +20,11 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 # Installing docker-compose
+echo 'Installing Docker Compose'
 sudo apt install docker-compose -y
 
 # Installing kubernetes
+echo 'Installing Kubernetes'
 sudo apt install apt-transport-https -y
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
