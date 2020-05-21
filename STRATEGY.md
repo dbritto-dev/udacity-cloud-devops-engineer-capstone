@@ -1,0 +1,8 @@
+- Cloudformation (Infra as code)
+- Ansible 
+    - Provisioning
+    - Configuration Management
+    - App Deployment
+    - CD
+    - Security Automation
+    - Orchestration

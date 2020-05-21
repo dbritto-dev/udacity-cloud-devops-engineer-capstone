@@ -28,6 +28,13 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt update -y && sudo apt install kubectl -y
 
+# Installing Minikube
+echo 'Installing Minikube'
+sudo wget -O /bin/minikube https://github.com/kubernetes/minikube/releases/download/v1.9.2/minikube-linux-amd64 | chmod +x
+minikube start
+kubectl create namespace compose
+
+
 # Running kubernetes
 echo 'Running kubernetes'
 cd /opt && sudo git clone https://github.com/danilobrinu/udacity-cloud-devops-engineer-project-5.git capstone.io
