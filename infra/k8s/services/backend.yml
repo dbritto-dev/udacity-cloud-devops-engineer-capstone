@@ -4,13 +4,13 @@ metadata:
   name: nginx-service
   labels:
     app: nginx
-    role: green
+    role: ${ROLE}
     env: production
 spec:
   type: LoadBalancer
   selector:
     app: nginx
-    role: green
+    role: ${ROLE}
   ports:
     - name: http
       port: 80

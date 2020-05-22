@@ -2,10 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+  labels:
+    app: nginx
+    role: blue
+    env: production
 spec:
   type: LoadBalancer
   selector:
     app: nginx
+    role: blue
   ports:
     - name: http
       port: 80

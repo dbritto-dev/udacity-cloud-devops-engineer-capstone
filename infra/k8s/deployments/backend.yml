@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment-blue
+  name: nginx-deployment-${ROLE}
   labels:
     app: nginx
-    role: blue
+    role: ${ROLE}
 spec:
   replicas: 4
   selector:
@@ -16,6 +16,11 @@ spec:
         app: nginx
     spec:
       containers:
+        # example:
+        # - name: api
+        #   image: minorpath/capstone-nginx:${ROLE}
+        #   ports:
+        #   - containerPort: 80
         - name: nginx
           image: nginx:1.18.0-alpine
           ports:
