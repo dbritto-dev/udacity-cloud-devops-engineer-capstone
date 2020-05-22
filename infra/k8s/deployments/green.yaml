@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment-green
+  selector:
+    matchLabels:
+      app: nginx
+      role: green
 spec:
   replicas: 4
   template:
