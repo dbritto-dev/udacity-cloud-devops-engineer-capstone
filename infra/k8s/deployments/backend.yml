@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment-${ROLE}
+  selector:
+    matchLabels:
+      app: nginx
+      role: ${ROLE}
 spec:
   replicas: 4
   template:
