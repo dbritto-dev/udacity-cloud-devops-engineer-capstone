@@ -2,21 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment-green
-  labels:
-    app: nginx
-    role: green
 spec:
   replicas: 4
-  selector:
-    matchLabels:
-      app: nginx
   template:
     metadata:
       labels:
         app: nginx
+        role: green
     spec:
       containers:
         - name: nginx
           image: nginx:1.18.0-alpine
           ports:
             - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
