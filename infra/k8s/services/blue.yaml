@@ -6,6 +6,8 @@ metadata:
     app: nginx
     role: blue
     env: production
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   type: LoadBalancer
   selector:
