@@ -6,8 +6,6 @@ metadata:
     app: nginx
     role: blue
     env: production
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 spec:
   type: LoadBalancer
   selector:
