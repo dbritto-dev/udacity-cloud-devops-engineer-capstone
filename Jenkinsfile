@@ -4,8 +4,6 @@ pipeline {
     environment {
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASSWORD = credentials('docker-password')
-        // K8S_API_SERVER = credentials('k8s-api-server')
-        // K8S_TOKEN = credentials('k8s-token')
         K8S_CONFIG_FILE = credentials('k8s-config-file')
     }
 
@@ -30,10 +28,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // sh 'aws eks get-token --cluster-name=capstone-cluster'
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh 'echo $K8S_CONFIG_FILE'
-                    sh 'kubectl version --kubeconfig=$K8S_CONFIG_FILE'
+                    sh 'kubectl apply -f ./infra/k8s/deployments/blue.yaml --kubeconfig=$K8S_CONFIG_FILE'
+                    sh 'kubectl apply -f ./infra/k8s/services/blue.yaml --kubeconfig=$K8S_CONFIG_FILE'
                 }
             }
         }
