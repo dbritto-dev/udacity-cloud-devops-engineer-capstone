@@ -38,7 +38,7 @@ publish:
 	docker push minorpatch/capstone-nginx:blue
 
 deploy:
-	aws eks get-token --cluster-name capstone-cluster
+	echo ${K8S_TOKEN}
 	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token
 	kubectl apply -f ./infra/k8s/services/blue.yaml
 
