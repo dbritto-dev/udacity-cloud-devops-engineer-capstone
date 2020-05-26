@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                     // sh 'aws eks get-token --cluster-name=capstone-cluster'
-                    sh 'kubectl version --kubeconfig=$KUBECONFIG'
+                    sh 'kubectl version --kubeconfig=/home/ubuntu/.kube/config'
                 }
             }
         }
