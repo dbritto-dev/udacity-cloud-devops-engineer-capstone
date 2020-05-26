@@ -31,8 +31,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 // sh 'aws eks get-token --cluster-name=capstone-cluster'
-                sh 'echo $K8S_CONFIG_FILE'
-                sh 'kubectl version --kubeconfig=$K8S_CONFIG_FILE'
+                withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                    sh 'echo $K8S_CONFIG_FILE'
+                    sh 'kubectl version --kubeconfig=$K8S_CONFIG_FILE'
+                }
             }
         }
     }
