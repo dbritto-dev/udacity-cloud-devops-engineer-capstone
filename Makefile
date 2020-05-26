@@ -38,7 +38,8 @@ publish:
 	docker push minorpatch/capstone-nginx:blue
 
 deploy:
-	kubectl apply -f services/blue.yaml
+	kubectl apply -f ./infra/k8s/deployments/blue.yaml
+	kubectl apply -f ./infra/k8s/services/blue.yaml
 
 run:
 	python3 ./code/run.py
