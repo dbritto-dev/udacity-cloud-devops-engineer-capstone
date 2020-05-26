@@ -38,7 +38,8 @@ publish:
 	docker push minorpatch/capstone-nginx:blue
 
 deploy:
-	kubectl apply -f ./infra/k8s/deployments/blue.yaml
+	aws eks get-token --cluster-name capstone-cluster
+	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token
 	kubectl apply -f ./infra/k8s/services/blue.yaml
 
 run:
