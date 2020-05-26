@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh 'make deploy'
+                    sh 'kubectl version'
                 }
             }
         }
