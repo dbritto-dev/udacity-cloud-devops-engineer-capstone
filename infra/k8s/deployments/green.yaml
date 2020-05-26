@@ -17,6 +17,9 @@ spec:
       containers:
         - name: nginx
           image: minorpatch/capstone-nginx:green
+          env:
+            - name: APP_NAME
+              value: GREEN
           ports:
             - containerPort: 80
           readinessProbe:
