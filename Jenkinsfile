@@ -6,7 +6,7 @@ pipeline {
         DOCKER_PASSWORD = credentials('docker-password')
         // K8S_API_SERVER = credentials('k8s-api-server')
         // K8S_TOKEN = credentials('k8s-token')
-        K8S_CONFIG = credentials('k8s-config')
+        // K8S_CONFIG = credentials('k8s-config')
     }
 
     stages {
