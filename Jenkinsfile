@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_USER = credentials('docker-user')
-        DOCKER_PASSWORD = credentials('docker-password')
-    }
-
     stages {
         stage('Linting') {
             steps {
