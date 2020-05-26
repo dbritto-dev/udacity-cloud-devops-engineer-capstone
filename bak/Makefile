@@ -27,18 +27,16 @@ performance-test:
 	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
 
 lint:
-	hadolint ./infra/docker/**/Dockerfile
+	docker-compose -f ./etc/docker/docker-compose.yml config
+	hadolint ./etc/docker/**/Dockerfile
+	python3 -m pylint --disable=R,C,W1202 ./code/**/**.py
 
 build:
-	docker build -t capstone-nginx:blue -f ./infra/docker/blue/Dockerfile
+	docker-compose -f ./etc/docker/docker-compose.yml build
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
-	docker tag capstone-nginx:blue minorpatch/capstone-nginx:blue
-	docker push minorpatch/capstone-nginx:blue
-
-deploy:
-	kubectl apply -f services/blue.yaml
+	docker-compose -f ./etc/docker/docker-compose.yml push
 
 run:
 	python3 ./code/run.py
