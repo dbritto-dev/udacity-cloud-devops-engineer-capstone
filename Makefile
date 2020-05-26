@@ -38,11 +38,9 @@ publish:
 	docker push minorpatch/capstone-nginx:blue
 
 deploy:
-	echo ${K8S_TOKEN}
-	echo ${K8S_API_SERVER}
 	kubectl version --token ${K8S_TOKEN} --server ${K8S_API_SERVER}
-	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token ${K8S_TOKEN}
-	kubectl apply -f ./infra/k8s/services/blue.yaml --token ${K8S_TOKEN}
+	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token ${K8S_TOKEN} --server ${K8S_API_SERVER}
+	kubectl apply -f ./infra/k8s/services/blue.yaml --token ${K8S_TOKEN} --server ${K8S_API_SERVER}
 
 run:
 	python3 ./code/run.py
