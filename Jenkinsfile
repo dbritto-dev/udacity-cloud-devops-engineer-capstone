@@ -32,7 +32,7 @@ pipeline {
             steps {
                 // sh 'aws eks get-token --cluster-name=capstone-cluster'
                 sh 'echo $K8S_CONFIG_FILE'
-                // sh 'kubectl version --kubeconfig=$K8S_CONFI_FILE'
+                sh 'kubectl version --kubeconfig=$K8S_CONFI_FILE'
             }
         }
     }
