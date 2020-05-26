@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASSWORD = credentials('docker-password')
+        K8S_API_SERVER = credentials('k8s-api-server')
         K8S_TOKEN = credentials('k8s-token')
     }
 

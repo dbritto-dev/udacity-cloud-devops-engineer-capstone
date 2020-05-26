@@ -39,7 +39,8 @@ publish:
 
 deploy:
 	echo ${K8S_TOKEN}
-	kubectl version --token ${K8S_TOKEN} --server https://C7D2171F140384D750B6E5060378420F.gr7.us-east-1.eks.amazonaws.com
+	echo ${K8S_API_SERVER}
+	kubectl version --token ${K8S_TOKEN} --server ${K8S_API_SERVER}
 	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token ${K8S_TOKEN}
 	kubectl apply -f ./infra/k8s/services/blue.yaml --token ${K8S_TOKEN}
 
