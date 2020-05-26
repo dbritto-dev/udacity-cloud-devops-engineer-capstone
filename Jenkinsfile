@@ -30,7 +30,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh 'aws eks get-token --cluster-name=capstone-cluster'
+                    // sh 'aws eks get-token --cluster-name=capstone-cluster'
+                    sh 'kubectl version'
                 }
             }
         }
