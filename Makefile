@@ -39,8 +39,8 @@ publish:
 
 deploy:
 	echo ${K8S_TOKEN}
-	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token
-	kubectl apply -f ./infra/k8s/services/blue.yaml
+	kubectl apply -f ./infra/k8s/deployments/blue.yaml --token ${K8S_TOKEN}
+	kubectl apply -f ./infra/k8s/services/blue.yaml --token ${K8S_TOKEN}
 
 run:
 	python3 ./code/run.py
