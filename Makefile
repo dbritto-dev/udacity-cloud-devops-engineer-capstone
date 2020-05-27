@@ -36,7 +36,9 @@ build:
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
 	docker tag capstone-nginx:blue minorpatch/capstone-nginx:blue
+	docker tag capstone-flask:blue minorpatch/capstone-flask:blue
 	docker push minorpatch/capstone-nginx:blue
+	docker push minorpatch/capstone-flask:blue
 
 deploy:
 	kubectl apply -f ./infra/k8s/deployments/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}
