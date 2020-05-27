@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                sh 'make build-ci'
+                sh 'make test'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'make build'

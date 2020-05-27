@@ -15,8 +15,9 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python3 -m coverage run -m pytest -vv ./code/**/*.py
-	python3 -m coverage report ./code/**/*.py
+	# python3 -m coverage run -m pytest -vv ./code/**/*.py
+	# python3 -m coverage report ./code/**/*.py
+	docker run --rm -it capstone-flask:ci python -m coverage run -m pytest -vv
 
 test-artifacts:
 	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
@@ -32,6 +33,9 @@ lint:
 build:
 	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
 	docker build -t capstone-flask:blue -f ./infra/docker/blue/flask/Dockerfile .
+
+build-ci:
+	docker build -t capstone-flask:ci -f ./infra/docker/blue/nginx/ci/Dockerfile .
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
