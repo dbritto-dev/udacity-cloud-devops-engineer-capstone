@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-green
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+      role: green
+  template:
+    metadata:
+      labels:
+        app: nginx
+        role: green
+    spec:
+      containers:
+        - name: nginx
+          image: minorpatch/capstone-nginx:green
+          env:
+            - name: APP_NAME
+              value: GREEN
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80

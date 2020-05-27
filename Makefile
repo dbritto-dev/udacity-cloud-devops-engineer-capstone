@@ -15,13 +15,34 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python -m coverage run -m pytest -vv
-	python -m coverage report
+	python3 -m coverage run -m pytest -vv ./code/**/*.py
+	python3 -m coverage report ./code/**/*.py
 
 test-artifacts:
-	python -m coverage run -m pytest --junitxml=junit.xml
-	python -m coverage xml -m
+	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	python3 -m coverage xml -o reports/junit/coverage.xml
+	python3 -m coverage html -d reports/web
+
+performance-test:
+	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
 
 lint:
-	hadolint Dockerfile
-	python -m pylint --disable=R,C,W1202
+	hadolint ./infra/docker/**/Dockerfile
+
+build:
+	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
+	docker build -t capstone-flask:blue -f ./infra/docker/blue/flask/Dockerfile .
+
+publish:
+	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+	docker tag capstone-nginx:blue minorpatch/capstone-nginx:blue
+	docker tag capstone-flask:blue minorpatch/capstone-flask:blue
+	docker push minorpatch/capstone-nginx:blue
+	docker push minorpatch/capstone-flask:blue
+
+deploy:
+	kubectl apply -f ./infra/k8s/deployments/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}
+	kubectl apply -f ./infra/k8s/services/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}
+
+run:
+	python3 ./code/run.py

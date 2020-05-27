@@ -1,1 +1,0 @@
-ELB_DNS_NAME: "{{ elb.elb.dns_name }}"
