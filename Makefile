@@ -15,17 +15,15 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	# python3 -m coverage run -m pytest -vv ./code/**/*.py
-	# python3 -m coverage report ./code/**/*.py
 	docker run --rm -i capstone-flask:ci python -m coverage run -m pytest -vv
 
 test-artifacts:
-	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
-	python3 -m coverage xml -o reports/junit/coverage.xml
-	python3 -m coverage html -d reports/web
+	docker run -rm -i capstone-flask:ci python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	docker run -rm -i capstone-flask:ci python -m coverage xml -o reports/junit/coverage.xml
+	docker run -rm -i capstone-flask:ci python -m coverage html -d reports/web
 
 performance-test:
-	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
+	docker run -m -i capstone-flask:ci python -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
 
 lint:
 	hadolint ./infra/docker/**/Dockerfile

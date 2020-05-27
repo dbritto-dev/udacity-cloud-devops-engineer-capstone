@@ -14,10 +14,19 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Tests') {
             steps {
                 sh 'make build-ci'
+                sh 'echo "General Testing"'
                 sh 'make test'
+                sh 'echo "Performance Testing"'
+                sh 'make performance-test'
+            }
+        }
+
+        stage('Tests Artifacts') {
+            steps {
+                sh 'make test-artifacts'
             }
         }
 
