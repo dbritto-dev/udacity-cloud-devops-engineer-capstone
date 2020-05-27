@@ -4,7 +4,7 @@ COPY ./code/requirements-ci.txt /app/
 RUN ls -la
 RUN pip install --user -r ./requirements-ci.txt
 
-FROM builder
+FROM builder-ci
 WORKDIR /app
 COPY ./code /app/
 CMD python run.py
