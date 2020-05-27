@@ -1,2 +1,0 @@
-USERDATA: "{{ lookup('file', 'user_data.sh') }}"
-ELB_NAME: "{{ application }}-load-balancer"
