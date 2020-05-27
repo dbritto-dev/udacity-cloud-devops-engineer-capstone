@@ -17,9 +17,7 @@ spec:
       containers:
         - name: nginx
           image: minorpatch/capstone-nginx:blue
-          env:
-            - name: APP_NAME
-              value: "BLUE APP"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 80
           readinessProbe:
@@ -28,6 +26,7 @@ spec:
               port: 80
         - name: flask
           image: minorpatch/capstone-flask:blue
+          imagePullPolicy: "Always"
           env:
             - name: APP_NAME
               value: "BLUE APP"
