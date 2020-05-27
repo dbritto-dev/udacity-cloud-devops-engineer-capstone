@@ -1,2 +1,3 @@
 FROM nginx:1.18.0-alpine
-VOLUME ./nginx /etc/nginx
+RUN rm -rf /etc/nginx
+COPY ./nginx /etc/nginx
