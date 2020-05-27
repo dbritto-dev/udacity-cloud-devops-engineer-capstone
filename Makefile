@@ -30,7 +30,8 @@ lint:
 	hadolint ./infra/docker/**/Dockerfile
 
 build:
-	docker build -t capstone-nginx:blue -f ./infra/docker/blue/Dockerfile .
+	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
+	docker build -t capstone-flask:blue -f ./infra/docker/blue/flask/Dockerfile .
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
