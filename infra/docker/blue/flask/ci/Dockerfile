@@ -1,9 +1,9 @@
-FROM python:3.7.7-alpine AS builder-ci
+FROM python:3.7.7-alpine AS builder
 WORKDIR /app
 COPY ./code/requirements.txt ./code/requirements-ci.txt /app/
 RUN pip install --user -r requirements-ci.txt
 
-FROM builder-ci
+FROM builder
 WORKDIR /app
 COPY ./code /app/
 CMD python run.py
