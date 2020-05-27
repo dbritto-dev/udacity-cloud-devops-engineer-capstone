@@ -31,7 +31,7 @@ spec:
           env:
             - name: APP_NAME
               value: "BLUE APP"
-          port:
+          ports:
             - containerPort: 8080
           readinessProbe:
             httpGet:
