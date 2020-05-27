@@ -1,19 +1,14 @@
-from locust import HttpUser, TaskSet, between
-
-
-def index(l):
-    l.client.get("/")
-
-
-def world_stats(l):
-    l.client.get("/world-stats")
-
-
-class UserBehavior(TaskSet):
-    tasks = {index: 1, world_stats: 1}
+from locust import HttpUser, task, between
 
 
 class WebsiteUser(HttpUser):
     host = "http://127.0.0.1:8081"
-    task_set = UserBehavior
     wait_time = between(5.0, 9.0)
+
+    @task
+    def endpoint_index(self):
+        self.client.get("/")
+
+    @task(3)
+    def endpoint_world_stats(self):
+        self.client.get("/world-stats")
