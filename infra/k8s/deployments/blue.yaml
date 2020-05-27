@@ -19,10 +19,21 @@ spec:
           image: minorpatch/capstone-nginx:blue
           env:
             - name: APP_NAME
-              value: BLUE APP
+              value: "BLUE APP"
           ports:
             - containerPort: 80
           readinessProbe:
             httpGet:
               path: /
               port: 80
+        - name: flask
+          image: minorpatch/capstone-flask:blue
+          env:
+            - name: APP_NAME
+              value: "BLUE APP"
+          port:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
