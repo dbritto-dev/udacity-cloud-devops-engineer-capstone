@@ -30,7 +30,7 @@ lint:
 	hadolint ./infra/docker/**/Dockerfile
 
 build:
-	docker build -t capstone-nginx:blue -f ./infra/docker/blue/Dockerfile
+	docker build -t capstone-nginx:blue -f ./infra/docker/blue/Dockerfile .
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
@@ -38,7 +38,6 @@ publish:
 	docker push minorpatch/capstone-nginx:blue
 
 deploy:
-	kubectl version --kubeconfig=${K8S_CONFIG_FILE}
 	kubectl apply -f ./infra/k8s/deployments/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}
 	kubectl apply -f ./infra/k8s/services/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}
 
