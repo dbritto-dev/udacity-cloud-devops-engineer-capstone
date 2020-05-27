@@ -23,7 +23,7 @@ test-artifacts:
 	docker run --rm -i capstone-flask:ci python -m coverage html -d reports/web
 
 performance-test:
-	docker run --rm -i capstone-flask:ci python -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
+	docker run --rm -i capstone-flask:ci python -m locust -f ./tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
 
 lint:
 	hadolint ./infra/docker/**/Dockerfile
