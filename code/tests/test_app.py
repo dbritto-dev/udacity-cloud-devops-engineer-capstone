@@ -31,4 +31,4 @@ def test_world_stats():
 
         assert res.status_code == 200
         assert res.mimetype == "application/json"
-        assert res.json.get("updatedAt") is not None
+        assert res.json.get("updatedAt") is None
