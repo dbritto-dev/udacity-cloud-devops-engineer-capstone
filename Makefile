@@ -17,7 +17,7 @@ install-minikube:
 test:
 	# python3 -m coverage run -m pytest -vv ./code/**/*.py
 	# python3 -m coverage report ./code/**/*.py
-	docker run --rm -it capstone-flask:ci python -m coverage run -m pytest -vv
+	docker exec --rm -i capstone-flask:ci python -m coverage run -m pytest -vv
 
 test-artifacts:
 	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
