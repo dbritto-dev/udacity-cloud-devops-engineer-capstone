@@ -29,8 +29,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh 'kubectl apply -f ./infra/k8s/deployments/blue.yaml --kubeconfig=$K8S_CONFIG_FILE'
-                    sh 'kubectl apply -f ./infra/k8s/services/blue.yaml --kubeconfig=$K8S_CONFIG_FILE'
+                    sh 'make deploy'
                 }
             }
         }
