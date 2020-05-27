@@ -16,13 +16,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'echo "build"'
+                sh 'make build'
             }
         }
 
         stage('Publish') {
             steps {
-                sh 'echo "publish"'
+                sh 'make publish'
             }
         }
 
