@@ -7,3 +7,4 @@ RUN pip install --user -r requirements-ci.txt
 FROM builder
 WORKDIR /app
 COPY ./code /app/
+CMD python run.py
