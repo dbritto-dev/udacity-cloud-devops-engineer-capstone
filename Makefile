@@ -35,7 +35,7 @@ build:
 	docker build -t capstone-flask:blue -f ./infra/docker/blue/flask/Dockerfile .
 
 build-ci:
-	docker build -t capstone-flask:ci -f ./infra/docker/blue/nginx/ci/Dockerfile .
+	docker build -t capstone-flask:ci -f ./infra/docker/blue/flask/ci/Dockerfile .
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
