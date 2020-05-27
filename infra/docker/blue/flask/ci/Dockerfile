@@ -1,7 +1,7 @@
 FROM python:3.7.7-alpine AS builder-ci
 WORKDIR /app
 COPY ./code/requirements-ci.txt /app/
-RUN cat requirements-ci.txt
+RUN pip3 install -r requirements-ci.txt
 # RUN pip install --user -r ./requirements-ci.txt
 
 FROM builder-ci
