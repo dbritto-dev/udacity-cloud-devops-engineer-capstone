@@ -28,7 +28,7 @@ pipeline {
 
         stage('General Testing') {
             steps {
-                sh script: 'make test', label: 'Unit, Integration'
+                sh 'make test'
             }
         }
 
