@@ -1,7 +1,7 @@
-from locust import HttpUser, task, between
+from locust import User, task, between
 
 
-class WebsiteUser(HttpUser):
+class WebsiteUser(User):
     host = "http://127.0.0.1:9000"
     wait_time = between(5.0, 9.0)
 
