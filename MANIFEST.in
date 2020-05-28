@@ -1,4 +1,0 @@
-graft code/
-include README.md
-include setup.py
-include setup.cfg
