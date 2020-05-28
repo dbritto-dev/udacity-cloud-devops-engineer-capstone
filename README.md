@@ -7,9 +7,36 @@ The app get world stats for covid 19 for each country in the world. This project
 
 Visit the app on http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/
 
--   Endpoints:
-    -   Hello World! -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/
-    -   World Covid Stats -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/world-stats
+## Endpoints:
+
+-   Hello World! -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/
+-   World Covid Stats -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/world-stats
+
+## Project Structure
+
+| File name 　　　　　　　　　　　　　　 | Description 　　　　　　　                                           |
+| :------------------------------------- | :------------------------------------------------------------------- |
+| `├── code/`                            | _This directory contains the Python Flask app and Tests_             |
+| `　　├── capstone/`                     | Python code                                                          |
+| `　　├── tests/`                        | Tests                                                                |
+| `　　├── .coveragerc`                   | Coverage configuration file                                          |
+| `　　├── .pylintrc`                     | Pylint configuration file                                            |
+| `　　├── requirements-ci.text`          | Python dependencies file for Continuous Integration (CI)             |
+| `　　├── requirements-dev.text`         | Python dependencies file for development                             |
+| `　　├── requirements.text`             | Python dependencies file for production                              |
+| `　　└── run.py`                        | Python script to run the application                                 |
+| `├── infra/`                           | _This directory contains the files for docker and kubernetes_        |
+| `　　├── docker/`                       | Docker files for blue and green deployment                           |
+| `　　├── k8s/`                          | Kubernetes files for blue and green deployment                       |
+| `　　└── server.yaml`                   | Template to create the cluster on Amazon EKS using EKSCTL            |
+| `├── nginx/`                           | _This directory contains the files for a custom NGINX configuration_ |
+| `├── screenshots/`                     | _This directory contains the files of the screenshots_               |
+| `├── .editorconfig`                    | Configuration file for editorconfig                                  |
+| `├── .gitignore`                       | Configuration file for gitignore                                     |
+| `├── Jenkinsfile`                      | Configuration file for Jenkins Pipelines                             |
+| `├── Makefile`                         | Set of custom scripts                                                |
+| `├── README.md`                        | Description of the app                                               |
+| `└── TODO.md`                          | Project TODO                                                         |
 
 ## Project Tasks
 
@@ -31,6 +58,11 @@ Visit the app on http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb
 -   setup and configure Kubernetes (https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
 -   Setup EKSCTL (https://eksctl.io/introduction/#installation)
 -   Setup Hadolint (https://github.com/hadolint/hadolint#install)
+
+#### 5. Configure Kubernetes to Run Locally
+
+-   Install Kubernetes (https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)
+-   Install Minikube (https://kubernetes.io/docs/tasks/tools/install-minikube/)
 
 ### Jenkins Steps
 
