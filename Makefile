@@ -35,7 +35,7 @@ performance-test:
 lint:
 	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
 	hadolint ./infra/docker/**/Dockerfile
-	docker exec -i ${CID} python -m pylint --disable=R,C,W1202 **/*.py
+	docker exec -i ${CID} python -m pylint --disable=R,C,W1202 **/*.py capstone/ tests/
 	docker stop ${CID}
 
 build:
