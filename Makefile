@@ -16,7 +16,7 @@ install-minikube:
 
 test:
 	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
-	docker exec -i ${CID} capstone-flask:ci python -m pytest -vv
+	docker exec -i ${CID} python -m pytest -vv
 	docker stop ${CID}
 
 test-artifacts:
