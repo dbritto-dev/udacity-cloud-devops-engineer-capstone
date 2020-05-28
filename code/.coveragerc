@@ -4,8 +4,8 @@ omit =
     # omit anything in a .local directory anywhere
     */.local/*
     # omit other files for testing and running
-    code/run.py
-    code/tests/performance.py
+    run.py
+    tests/performance.py
 
 [report]
 omit =
