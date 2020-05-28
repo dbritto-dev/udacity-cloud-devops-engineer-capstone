@@ -15,23 +15,35 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python3 -m coverage run -m pytest -vv ./code/**/*.py
-	python3 -m coverage report ./code/**/*.py
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m pytest -vv
+	docker stop ${CID}
 
 test-artifacts:
-	python3 -m coverage run -m pytest --junitxml=reports/junit/junit.xml
-	python3 -m coverage xml -o reports/junit/coverage.xml
-	python3 -m coverage html -d reports/web
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	docker exec -i ${CID} python -m coverage xml -o reports/junit/coverage.xml
+	docker exec -i ${CID} python -m coverage html -d reports/web
+	docker cp ${CID}:/app/reports ./reports
+	docker stop ${CID}
 
 performance-test:
-	python3 -m locust -f ./code/tests/performance.py --no-web --print-stats --only-summary -c 100 -r 1 -t 1m
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker stop ${CID}
 
 lint:
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
 	hadolint ./infra/docker/**/Dockerfile
+	docker exec -i ${CID} python -m pylint capstone/ tests/
+	docker stop ${CID}
 
 build:
 	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
 	docker build -t capstone-flask:blue -f ./infra/docker/blue/flask/Dockerfile .
+
+build-ci:
+	docker build -t capstone-flask:ci -f ./infra/docker/blue/flask/ci/Dockerfile .
 
 publish:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}

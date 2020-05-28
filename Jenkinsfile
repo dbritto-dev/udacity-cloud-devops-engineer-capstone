@@ -8,11 +8,46 @@ pipeline {
     }
 
     stages {
+        stage('Setup') {
+            steps {
+                sh 'make build-ci'
+            }
+        }
+
         stage('Linting') {
             steps {
                 sh 'make lint'
             }
         }
+
+        stage('Testing') {
+            stages {
+                stage('Security Testing') {
+                    steps {
+                        aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+                    }
+                }
+
+                stage('General Testing') {
+                    steps {
+                        sh 'make test'
+                    }
+                }
+
+                stage('Performance Testing') {
+                    steps {
+                        sh 'make performance-test'
+                    }
+                }
+
+                stage('Testing Artifacts') {
+                    steps {
+                        sh 'make test-artifacts'
+                    }
+                }
+            }
+        }
+
 
         stage('Build') {
             steps {
@@ -32,6 +67,13 @@ pipeline {
                     sh 'make deploy'
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'reports/web/**/*', allowEmptyArchive: true, fingerprint: true
+            junit 'reports/junit/**/*.xml'
         }
     }
 }

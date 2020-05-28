@@ -1,0 +1,16 @@
+[run]
+branch = True
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/*
+    # omit other files for testing and running
+    run.py
+    tests/performance.py
+
+[report]
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/*
+    # omit other files for testing and running
+    run.py
+    tests/performance.py
