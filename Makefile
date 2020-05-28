@@ -22,7 +22,7 @@ test-artifacts:
 	docker exec -i ${CID} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
 	docker exec -i ${CID} python -m coverage xml -o reports/junit/coverage.xml
 	docker exec -i ${CID} python -m coverage html -d reports/web
-	docker cp ${CID}:/app/reports $(pwd)/reports
+	docker cp ${CID}:/app/reports ./reports
 	docker stop ${CID}
 
 performance-test:
