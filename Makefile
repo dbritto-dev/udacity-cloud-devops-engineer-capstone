@@ -26,7 +26,7 @@ test-artifacts:
 
 performance-test:
 	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
-	docker exec -i ${CID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker exec -i ${CID} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
 	docker stop ${CID}
 
 lint:
