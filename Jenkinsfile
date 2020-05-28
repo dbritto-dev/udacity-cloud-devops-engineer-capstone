@@ -8,15 +8,26 @@ pipeline {
     }
 
     stages {
+        stage('Setup') {
+            steps {
+                sh 'make build-ci'
+            }
+        }
+
         stage('Linting') {
             steps {
                 sh 'make lint'
             }
         }
 
-        stage('Tests') {
+        stage('Security Testing') {
             steps {
-                sh 'make build-ci'
+                aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+            }
+        }
+
+        stage('Testing') {
+            steps {
                 sh 'echo "General Testing"'
                 sh 'make test'
                 sh 'echo "Performance Testing"'
@@ -24,7 +35,7 @@ pipeline {
             }
         }
 
-        stage('Tests Artifacts') {
+        stage('Testing Artifacts') {
             steps {
                 sh 'make test-artifacts'
             }

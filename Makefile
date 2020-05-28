@@ -31,7 +31,10 @@ performance-test:
 	docker stop ${CID}
 
 lint:
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
 	hadolint ./infra/docker/**/Dockerfile
+	docker exec -i ${CID} python -m pylint --disable=R,C,W1202 **/*.py
+	docker stop ${CID}
 
 build:
 	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
