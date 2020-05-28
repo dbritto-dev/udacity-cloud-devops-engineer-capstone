@@ -53,7 +53,8 @@ pipeline {
 
     post {
         always {
-            sh 'ls -la'
+            archiveArtifacts artifacts: 'reports/web/**/*', allowEmptyArchive: true, fingerprint: true
+            junit 'reports/junit/**/*.xml'
         }
     }
 }
