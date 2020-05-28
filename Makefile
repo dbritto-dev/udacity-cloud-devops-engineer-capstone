@@ -15,13 +15,46 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	python -m coverage run -m pytest -vv
-	python -m coverage report
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m pytest -vv
+	docker stop ${CID}
 
 test-artifacts:
-	python -m coverage run -m pytest --junitxml=junit.xml
-	python -m coverage xml -m
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	docker exec -i ${CID} python -m coverage xml -o reports/junit/coverage.xml
+	docker exec -i ${CID} python -m coverage html -d reports/web
+	docker cp ${CID}:/app/reports ./reports
+	docker stop ${CID}
+
+performance-test:
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker stop ${CID}
 
 lint:
-	hadolint Dockerfile
-	python -m pylint --disable=R,C,W1202
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	hadolint ./infra/docker/**/Dockerfile
+	docker exec -i ${CID} python -m pylint capstone/ tests/
+	docker stop ${CID}
+
+build:
+	docker build -t capstone-nginx:green -f ./infra/docker/green/nginx/Dockerfile .
+	docker build -t capstone-flask:green -f ./infra/docker/green/flask/Dockerfile .
+
+build-ci:
+	docker build -t capstone-flask:ci -f ./infra/docker/green/flask/ci/Dockerfile .
+
+publish:
+	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+	docker tag capstone-nginx:green minorpatch/capstone-nginx:green
+	docker tag capstone-flask:green minorpatch/capstone-flask:green
+	docker push minorpatch/capstone-nginx:green
+	docker push minorpatch/capstone-flask:green
+
+deploy:
+	kubectl apply -f ./infra/k8s/deployments/green.yaml --kubeconfig=${K8S_CONFIG_FILE}
+	kubectl apply -f ./infra/k8s/services/green.yaml --kubeconfig=${K8S_CONFIG_FILE}
+
+run:
+	python3 ./code/run.py
