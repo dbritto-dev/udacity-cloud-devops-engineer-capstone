@@ -6,6 +6,8 @@ omit =
     code/tests/performance.py
 
 [report]
+branch = True
+source = code
 omit =
     code/run.py
     code/tests/performance.py
