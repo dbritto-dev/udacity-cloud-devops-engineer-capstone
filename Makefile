@@ -15,28 +15,28 @@ install-minikube:
 	chmod +x /bin/minikube
 
 test:
-	docker run --rm -d --name capstone-flask-ci caspstone-flask:ci
-	docker exec -i capstone-flask-ci python -m pytest -vv
-	docker stop capstone-flask-ci
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m pytest -vv
+	docker stop ${CID}
 
 test-artifacts:
-	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
-	docker exec -i capstone-flask-ci python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
-	docker exec -i capstone-flask-ci python -m coverage xml -o reports/junit/coverage.xml
-	docker exec -i capstone-flask-ci python -m coverage html -d reports/web
-	docker cp capstone-flask-ci:/app/reports ./reports
-	docker stop capstone-flask-ci
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	docker exec -i ${CID} python -m coverage xml -o reports/junit/coverage.xml
+	docker exec -i ${CID} python -m coverage html -d reports/web
+	docker cp ${CID}:/app/reports ./reports
+	docker stop ${CID}
 
 performance-test:
-	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
-	docker exec -i capstone-flask-ci python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
-	docker stop capstone-flask-ci
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker stop ${CID}
 
 lint:
-	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
 	hadolint ./infra/docker/**/**/*/Dockerfile
-	docker exec -i capstone-flask-ci python -m pylint capstone/ tests/
-	docker stop capstone-flask-ci
+	docker exec -i ${CID} python -m pylint capstone/ tests/
+	docker stop ${CID}
 
 build:
 	docker build -t capstone-nginx:blue -f ./infra/docker/blue/nginx/Dockerfile .
