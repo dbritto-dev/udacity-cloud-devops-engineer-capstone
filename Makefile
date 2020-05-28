@@ -23,9 +23,9 @@ test-artifacts:
 	docker run --rm -i capstone-flask:ci python -m coverage html -d reports/web
 
 performance-test:
-  $(eval CONTAINER_ID=$(shell docker run -d capstone-flask:ci))
-	docker exec -it ${CONTAINER_ID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
-	docker stop ${CONTAINER_ID}
+	docker run --rm -d capstone-flask:ci
+	docker exec -it $(docker ps -f name=capstone-flask:ci -q) python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker stop $(docker ps -f name=capstone-flask:ci -q)
 
 lint:
 	hadolint ./infra/docker/**/Dockerfile
