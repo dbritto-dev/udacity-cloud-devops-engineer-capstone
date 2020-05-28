@@ -18,13 +18,15 @@ test:
 	docker run --rm -i capstone-flask:ci python -m coverage run -m pytest -vv
 
 test-artifacts:
-	docker run --rm -i capstone-flask:ci python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
-	docker run --rm -i capstone-flask:ci python -m coverage xml -o reports/junit/coverage.xml
-	docker run --rm -i capstone-flask:ci python -m coverage html -d reports/web
+	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
+	docker exec -i ${CID} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
+	docker exec -i ${CID} python -m coverage xml -o reports/junit/coverage.xml
+	docker exec -i ${CID} python -m coverage html -d reports/web
+	docker stop ${CID}
 
 performance-test:
 	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
-	docker exec -it ${CID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker exec -i ${CID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
 	docker stop ${CID}
 
 lint:
