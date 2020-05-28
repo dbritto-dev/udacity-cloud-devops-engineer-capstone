@@ -34,7 +34,7 @@ pipeline {
                     }
                 }
 
-                stage('Performace Testing') {
+                stage('Performance Testing') {
                     steps {
                         sh 'make performance-test'
                     }
