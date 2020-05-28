@@ -20,29 +20,34 @@ pipeline {
             }
         }
 
-        stage('Security Testing') {
-            steps {
-                aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+        stage('Testing') {
+            stages {
+                stage('Security Testing') {
+                    steps {
+                        aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+                    }
+                }
+
+                stage('General Testing') {
+                    steps {
+                        sh 'make test'
+                    }
+                }
+
+                stage('Performace Testing') {
+                    steps {
+                        sh 'make performance-test'
+                    }
+                }
+
+                stage('Testing Artifacts') {
+                    steps {
+                        sh 'make test-artifacts'
+                    }
+                }
             }
         }
 
-        stage('General Testing') {
-            steps {
-                sh 'make test'
-            }
-        }
-
-        stage('Performace Testing') {
-            steps {
-                sh 'make performance-test'
-            }
-        }
-
-        stage('Testing Artifacts') {
-            steps {
-                sh 'make test-artifacts'
-            }
-        }
 
         stage('Build') {
             steps {
