@@ -51,5 +51,5 @@
 
 -   [x] Push the built Docker container(s) to the Docker repository.
 -   [x] Deploy these Docker container(s) to a small Kubernetes cluster.
--   [ ] Deploy your Kubernetes cluster, using Ansible or Cloudformation.
+-   [x] EKS
     -   [x] Preferably, run these from within Jenkins as an independent pipeline.
