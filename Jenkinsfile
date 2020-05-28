@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('performace Testing') {
+        stage('Performace Testing') {
             steps {
                 sh 'make performance-test'
             }
