@@ -14,7 +14,7 @@ Visit the app on http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb
 
 ## Project Structure
 
-| File name 　　　　　　　　　　　　　　 | Description 　　　　　　　                                           |
+| File Name 　　　　　　　　　　　　　　 | Description 　　　　　　　                                           |
 | :------------------------------------- | :------------------------------------------------------------------- |
 | `├── code/`                            | _This directory contains the Python Flask app and Tests_             |
 | `　　├── capstone/`                     | Python code                                                          |
