@@ -71,11 +71,11 @@ Visit the app on http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb
 -   Setup BlueOcean (https://plugins.jenkins.io/blueocean/) and (https://plugins.jenkins.io/blueocean-executor-info/)
 -   Create Credentials:
     -   Secret Texts
-        -   Docker User -> `ID`: docker-user, `Secret`: <your-docker-user>
-        -   Docker Password -> `ID`: docker-password, `Secret`: <your-docker-password>
+        -   Docker User -> `ID`: docker-user, `Secret`: `<your-docker-user>`
+        -   Docker Password -> `ID`: docker-password, `Secret`: `<your-docker-password>`
         -   K8S Config File Path -> `ID`: k8s-config-file, `Secret`: /home/ubuntu/.kube/kubeconfig (an example)
     -   AWS Credentials
-        -   AWS Credentials -> `ID`: aws-creds, `Access Key ID`: <access-key-id>, `Secret Access Key`: <secret-access-key>
+        -   AWS Credentials -> `ID`: aws-creds, `Access Key ID`: `<access-key-id>`, `Secret Access Key`: `<secret-access-key>`
 
 ### Create a cluster
 
