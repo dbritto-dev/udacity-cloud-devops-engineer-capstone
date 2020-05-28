@@ -20,7 +20,7 @@ test:
 	docker stop capstone-flask-ci
 
 test-artifacts:
-	docker exec --rm -d --name caspstone-flask-ci capstone-flask:ci
+	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
 	docker exec -i capstone-flask-ci python -m coverage run -m pytest --junitxml=reports/junit/junit.xml
 	docker exec -i capstone-flask-ci python -m coverage xml -o reports/junit/coverage.xml
 	docker exec -i capstone-flask-ci python -m coverage html -d reports/web
@@ -28,12 +28,12 @@ test-artifacts:
 	docker stop capstone-flask-ci
 
 performance-test:
-	docker exec --rm -d --name caspstone-flask-ci capstone-flask:ci
+	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
 	docker exec -i capstone-flask-ci python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
 	docker stop capstone-flask-ci
 
 lint:
-	docker exec --rm -d --name caspstone-flask-ci capstone-flask:ci
+	docker run --rm -d --name caspstone-flask-ci capstone-flask:ci
 	hadolint ./infra/docker/**/**/*/Dockerfile
 	docker exec -i capstone-flask-ci python -m pylint capstone/ tests/
 	docker stop capstone-flask-ci
