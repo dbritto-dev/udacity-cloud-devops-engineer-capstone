@@ -34,7 +34,7 @@ performance-test:
 
 lint:
 	$(eval CID=$(shell docker run --rm -d capstone-flask:ci))
-	hadolint ./infra/docker/**/*/Dockerfile
+	hadolint ./infra/docker/**/**/*/Dockerfile
 	docker exec -i ${CID} python -m pylint capstone/ tests/
 	docker stop ${CID}
 
