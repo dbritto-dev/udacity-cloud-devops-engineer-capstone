@@ -26,11 +26,14 @@ pipeline {
             }
         }
 
-        stage('Testing') {
+        stage('General Testing') {
             steps {
-                sh 'echo "General Testing"'
-                sh 'make test'
-                sh 'echo "Performance Testing"'
+                sh 'make test', label: 'Unit, Integration'
+            }
+        }
+
+        stage('performace Testing') {
+            steps {
                 sh 'make performance-test'
             }
         }
