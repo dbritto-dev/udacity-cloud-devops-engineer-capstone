@@ -23,7 +23,7 @@ test-artifacts:
 	docker run --rm -i capstone-flask:ci python -m coverage html -d reports/web
 
 performance-test:
-  CONTAINER_ID=$(docker run -d capstone-flask:ci)
+  CONTAINER_ID=$(shell docker run -d capstone-flask:ci)
 	docker exec -it ${CONTAINER_ID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
 	docker stop ${CONTAINER_ID}
 
