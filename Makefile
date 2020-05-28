@@ -24,8 +24,8 @@ test-artifacts:
 
 performance-test:
   CONTAINER_ID=$(docker run -d capstone-flask:ci)
-	docker exec -it $CONTAINER_ID python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
-	docker stop $CONTAINER_ID
+	docker exec -it ${CONTAINER_ID} python -m locust -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m
+	docker stop ${CONTAINER_ID}
 
 lint:
 	hadolint ./infra/docker/**/Dockerfile
