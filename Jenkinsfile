@@ -22,7 +22,7 @@ pipeline {
                     docker.image('minorpatch/capstone-flask:ci').withRun { c ->
                         sh 'docker logs ${c.id}'
                     }
-                    docker.image('minorpatch/capstone-flask:ci').inside {
+                    docker.image('minorpatch/capstone-flask:ci').inside('--network bridge') {
                         sh 'pwd'
                         sh 'pip freeze'
                     }
