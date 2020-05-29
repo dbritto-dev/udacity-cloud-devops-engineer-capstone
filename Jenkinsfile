@@ -20,7 +20,7 @@ pipeline {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
                     docker.image('minorpatch/capstone-flask:ci').inside {
-                        sh 'python -m pylint'
+                        sh 'pwd'
                     }
                 }
                 // sh 'make lint'
