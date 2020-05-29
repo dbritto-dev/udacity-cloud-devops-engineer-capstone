@@ -24,7 +24,7 @@ def index() -> Response:
 
 @bp.route("/world-stats")
 def world_stats() -> Response:
-    world_stats_url = "https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data#covid19-container"
+    world_stats_url = "https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data#covid19-container" # noqa
 
     with urlopen(world_stats_url) as response:
         html = response.read().decode("utf-8")

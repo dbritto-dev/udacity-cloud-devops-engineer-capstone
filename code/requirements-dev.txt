@@ -1,7 +1,7 @@
 -r requirements.txt
 
 black
-pylint
+flake8
 pytest
 coverage
 locust

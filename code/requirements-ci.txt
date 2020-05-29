@@ -1,6 +1,6 @@
 -r requirements.txt
 
-pylint
+flake8
 pytest
 coverage
 locust
