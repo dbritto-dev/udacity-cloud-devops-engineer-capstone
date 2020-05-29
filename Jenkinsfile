@@ -5,13 +5,15 @@ pipeline {
         DOCKER_USER = credentials('docker-user')
         DOCKER_PASSWORD = credentials('docker-password')
         K8S_CONFIG_FILE = credentials('k8s-config-file')
+        ROLE = 'blue'
     }
 
     stages {
         stage('Setup') {
             steps {
+                sh 'ls -la'
                 script {
-                    docker.build('minorpatch/capstone-flask:ci', './infra/docker/blue/flask/ci')
+                    docker.build('minorpatch/capstone-flask:ci', './infra/$ROLE/blue/flask/ci')
                 }
                 // sh 'make build-ci'
             }
