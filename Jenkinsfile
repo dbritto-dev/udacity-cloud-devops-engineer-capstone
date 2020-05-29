@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'make build-ci'
+                docker.build('minorpatch/capstone-flask:ci', './infra/docker/blue/flask/ci')
+                // sh 'make build-ci'
             }
         }
 
