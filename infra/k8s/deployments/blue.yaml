@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment-blue
+  name: capstone-deployment-blue
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: nginx
+      app: capstone
       role: blue
   template:
     metadata:
       labels:
-        app: nginx
+        app: capstone
         role: blue
     spec:
       containers:
