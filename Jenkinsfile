@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     docker.image("minorpatch/capstone-flask:ci").withRun { c ->
-                        sh "docker exec -i ${c.id} python -m flake8 code/"
+                        sh "docker exec -i ${c.id} python -m flake8 ."
                     }
                 }
             }
