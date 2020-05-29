@@ -9,10 +9,7 @@ pipeline {
 
     stages {
         stage('Setup') {
-            steps {
-                docker.build('minorpatch/capstone-flask:ci', './infra/docker/blue/flask/ci')
-                // sh 'make build-ci'
-            }
+            def ci_api_image = docker.build('minorpatch/capstone-flask:ci', './infra/docker/blue/flask/ci')
         }
 
         stage('Linting') {
