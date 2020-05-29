@@ -19,11 +19,10 @@ pipeline {
             steps {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
-                    docker.image('minorpatch/capstone-flask:ci').withRun { c ->
-                        sh 'echo "Docker Container ID: ${c.id}"'
+                    docker.image('minorpatch/capstone-flask:ci').withRun('--rm') { c ->
                         sh 'pwd'
                     }
-                    docker.image('minorpatch/capstone-flask:ci').inside {
+                    docker.image('minorpatch/capstone-flask:ci').inside('--rm') {
                         sh 'pwd'
                         sh 'pip freeze'
                     }
