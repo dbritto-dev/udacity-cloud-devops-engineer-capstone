@@ -20,7 +20,8 @@ pipeline {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
                     docker.image('minorpatch/capstone-flask:ci').withRun { c ->
-                        sh 'docker logs ${c.id}'
+                        def cid = c.od
+                        sh 'docker logs $cid'
                     }
                     docker.image('minorpatch/capstone-flask:ci').inside('--network bridge') {
                         sh 'pwd'
