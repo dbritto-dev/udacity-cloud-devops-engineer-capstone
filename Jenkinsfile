@@ -23,9 +23,9 @@ pipeline {
                         echo c.id
                         sh 'pwd'
                     }
-                    docker.image('minorpatch/capstone-flask:ci').withRun('--network bridge') {
+                    docker.image('minorpatch/capstone-flask:ci').inside('--network bridge') {
                         sh 'pwd'
-                        sh 'pip freeze'
+                        // sh 'pip freeze'
                     }
                 }
                 // sh 'make lint'
