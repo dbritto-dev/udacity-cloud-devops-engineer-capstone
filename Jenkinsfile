@@ -20,7 +20,7 @@ pipeline {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
                     docker.image('minorpatch/capstone-flask:ci').withRun { c ->
-                        sh 'pwd'
+                        sh 'echo ${c.id}'
                     }
                     docker.image('minorpatch/capstone-flask:ci').inside {
                         sh 'pwd'
