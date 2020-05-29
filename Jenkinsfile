@@ -21,9 +21,9 @@ pipeline {
                 script {
                     docker.image('minorpatch/capstone-flask:ci').withRun { c ->
                         echo c.id
-                        sh 'echo ${c.id}'
+                        sh "echo ${c.id}"
                     }
-                    docker.image('minorpatch/capstone-flask:ci').inside('--entrypoint ""') {
+                    docker.image('minorpatch/capstone-flask:ci').inside() {
                         sh 'pwd'
                         sh 'sudo netstat -tulpn'
                         // sh 'pip freeze'
