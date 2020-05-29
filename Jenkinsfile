@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh 'ls -la'
                 script {
-                    docker.build('minorpatch/capstone-flask:ci', './infra/$ROLE/blue/flask/ci')
+                    docker.build('minorpatch/capstone-flask:ci', './infra/docker/$ROLE/flask/ci')
                 }
                 // sh 'make build-ci'
             }
