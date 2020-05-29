@@ -25,6 +25,7 @@ pipeline {
                     }
                     docker.image('minorpatch/capstone-flask:ci').inside('--entrypoint ""') {
                         sh 'pwd'
+                        sh 'netstat -tulpn'
                         // sh 'pip freeze'
                     }
                 }
