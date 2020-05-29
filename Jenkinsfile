@@ -18,8 +18,10 @@ pipeline {
         stage('Linting') {
             steps {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
-                docker.image('minorpatch/capstone-flask:ci').inside {
-                    sh 'python -m pylint'
+                script {
+                    docker.image('minorpatch/capstone-flask:ci').inside {
+                        sh 'python -m pylint'
+                    }
                 }
                 // sh 'make lint'
             }
