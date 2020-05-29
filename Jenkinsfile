@@ -96,8 +96,8 @@ pipeline {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                     sh """
                     kubectl apply --kubeconfig=${K8S_CONFIG_FILE} \
-                        -f ./infra/k8s/deployment/${ROLE}.yaml \
-                        -f ./infra/k8s/services/${ROLE}.yml
+                        -f ./infra/k8s/deployments/${ROLE}.yaml \
+                        -f ./infra/k8s/services/${ROLE}.yaml
                     """
                 }
             }
