@@ -17,20 +17,11 @@ pipeline {
 
         stage('Linting') {
             steps {
-                sh "hadolint ./infra/docker/$ROLE/**/Dockerfile"
                 script {
                     docker.image("minorpatch/capstone-flask:ci").withRun { c ->
-                        sh "echo ${c.id}"
-                        sh "docker exec -i ${c.id} python -m flake code/"
-                    }
-
-                    docker.image("minorpatch/capstone-flask:ci").inside() {
-                        sh "pwd"
-                        sh "netstat -tulpn"
-                        // sh 'pip freeze'
+                        sh "docker exec -i ${c.id} python -m flake8 code/"
                     }
                 }
-                // sh 'make lint'
             }
         }
 
