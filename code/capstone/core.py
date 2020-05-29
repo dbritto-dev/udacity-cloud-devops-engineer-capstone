@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 from .helpers import slugify, string_to_integer, parse_date
 
 bp = Blueprint("core", __name__, url_prefix="/")
+
+
 @bp.route("/")
 def index() -> Response:
     app_name = getenv("APP_NAME")
