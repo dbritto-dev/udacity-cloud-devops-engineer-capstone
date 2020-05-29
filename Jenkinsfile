@@ -20,12 +20,12 @@ pipeline {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
                     docker.image('minorpatch/capstone-flask:ci').withRun { c ->
+                        sh 'Docker Container ID: ${c.id}'
                         sh 'pwd'
                     }
                     docker.image('minorpatch/capstone-flask:ci').inside {
                         sh 'pwd'
-                        sh 'ls'
-                        sh 'curl localhost:8080'
+                        sh 'pip freeze'
                     }
                 }
                 // sh 'make lint'
