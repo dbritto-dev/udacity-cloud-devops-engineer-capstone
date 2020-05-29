@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
-                    docker.image('minorpatch/capstone-flask:ci').run { c ->
+                    docker.image('minorpatch/capstone-flask:ci').withRun { c ->
                         sh 'pwd'
                         c.stop()
                     }
