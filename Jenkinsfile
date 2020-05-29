@@ -4,13 +4,18 @@ pipeline {
     environment {
         K8S_CONFIG_FILE = credentials('k8s-config-file')
         ROLE = 'blue'
+
+        DOCKER_USER = "minorpatch"
+        NGINX_IMAGE = "$DOCKER_USER/capstone-nginx:$ROLE"
+        FLASK_IMAGE = "$DOCKER_USER/capstone-flask:$ROLE"
+        CI_IMAGE = "$DOCKER_USER/capstone-flask:ci"
     }
 
     stages {
         stage('Setup') {
             steps {
                 script {
-                    docker.build("minorpatch/capstone-flask:ci", "-f ./infra/docker/$ROLE/flask/ci/Dockerfile .")
+                    docker.build($CI_IMAGE, "-f ./infra/docker/$ROLE/flask/ci/Dockerfile .")
                 }
             }
         }
@@ -18,7 +23,7 @@ pipeline {
         stage('Linting') {
             steps {
                 script {
-                    docker.image("minorpatch/capstone-flask:ci").withRun { c ->
+                    docker.image($CI_IMAGE).withRun { c ->
                         sh "docker exec -i ${c.id} python -m flake8 ."
                     }
                 }
@@ -35,19 +40,33 @@ pipeline {
 
                 stage('General Testing') {
                     steps {
-                        sh "make test"
+                        script {
+                            docker.image($CI_IMAGE).withRun { c ->
+                                sh "docker exec -i ${c.id} python -m pytest -vv"
+                            }
+                        }
                     }
                 }
 
                 stage('Performance Testing') {
                     steps {
-                        sh "make performance-test"
+                        script {
+                            docker.image($CI_IMAGE).withRun { c ->
+                                sh "docker exec -i ${c.id} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m"
+                            }
+                        }
                     }
                 }
 
                 stage('Testing Artifacts') {
                     steps {
-                        sh "make test-artifacts"
+                        script {
+                            docker.image($CI_IMAGE).withRun { c ->
+                                sh "docker exec -i ${c.id} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml"
+                                sh "docker exec -i ${c.id} python -m coverage html -d reports/web"
+                                sh "docker cp ${c.id}:/app/reports ./reports"
+                            }
+                        }
                     }
                 }
             }
@@ -57,7 +76,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build("minorpatch/capstone-flask:$ROLE", "-f ./infra/docker/blue/flask/Dockerfile .")
+                    docker.build($NGINX_IMAGE, "-f ./infra/docker/$ROLE/nginx/Dockerfile .")
+                    docker.build($FLASK_IMAGE, "-f ./infra/docker/$ROLE/flask/Dockerfile .")
                 }
             }
         }
@@ -65,7 +85,8 @@ pipeline {
         stage('Publish') {
             steps {
                 script {
-                    docker.image("minorpatch/capstone-flask:$ROLE").push()
+                    docker.image($NGINX_IMAGE).push()
+                    docker.image($FLASK_IMAGE).push()
                 }
             }
         }
@@ -73,7 +94,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh "make deploy"
+                    // sh "make deploy"
+                    sh "kubectl apply -f ./infra/k8s/**/blue.yaml --kubeconfig=${K8S_CONFIG_FILE}"
                 }
             }
         }
