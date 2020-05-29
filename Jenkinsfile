@@ -11,12 +11,9 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
                 script {
-                    docker.build('minorpatch/capstone-flask:ci', './infra/docker/$ROLE/flask/ci')
+                    docker.build('minorpatch/capstone-flask:ci', '-f ./infra/docker/$ROLE/flask/ci/Dockerfile .')
                 }
-                // sh 'make build-ci'
             }
         }
 
