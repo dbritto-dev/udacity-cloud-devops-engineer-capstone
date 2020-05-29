@@ -2,8 +2,6 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = credentials('docker-user')
-        DOCKER_PASSWORD = credentials('docker-password')
         K8S_CONFIG_FILE = credentials('k8s-config-file')
         ROLE = 'blue'
     }
@@ -54,13 +52,17 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'make build'
+                script {
+                    docker.build('minorpatch/capstone-flask:$ROLE', '-f ./infra/docker/blue/flask/Dockerfile .')
+                }
             }
         }
 
         stage('Publish') {
             steps {
-                sh 'make publish'
+                script {
+                    docker.image('minorpatch/capstone-flask:$ROLE').push()
+                }
             }
         }
 
