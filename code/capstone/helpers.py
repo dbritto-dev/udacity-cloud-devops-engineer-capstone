@@ -6,6 +6,7 @@ from datetime import datetime
 # Types
 from typing import Optional
 
+
 # Take it from https://github.com/django/django/blob/master/django/utils/text.py#L394
 def slugify(value: str, allow_unicode: bool = False) -> str:
     """
