@@ -23,7 +23,7 @@ pipeline {
                         echo c.id
                         sh 'pwd'
                     }
-                    docker.image('minorpatch/capstone-flask:ci').inside('--network bridge') {
+                    docker.image('minorpatch/capstone-flask:ci').inside('--entrypoint ""') {
                         sh 'pwd'
                         // sh 'pip freeze'
                     }
