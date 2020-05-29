@@ -15,7 +15,7 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    docker.build($CI_IMAGE, "-f ./infra/docker/$ROLE/flask/ci/Dockerfile .")
+                    docker.build("$CI_IMAGE", "-f ./infra/docker/$ROLE/flask/ci/Dockerfile .")
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Linting') {
             steps {
                 script {
-                    docker.image($CI_IMAGE).withRun { c ->
+                    docker.image("$CI_IMAGE").withRun { c ->
                         sh "docker exec -i ${c.id} python -m flake8 ."
                     }
                 }
@@ -41,7 +41,7 @@ pipeline {
                 stage('General Testing') {
                     steps {
                         script {
-                            docker.image($CI_IMAGE).withRun { c ->
+                            docker.image("$CI_IMAGE").withRun { c ->
                                 sh "docker exec -i ${c.id} python -m pytest -vv"
                             }
                         }
@@ -51,7 +51,7 @@ pipeline {
                 stage('Performance Testing') {
                     steps {
                         script {
-                            docker.image($CI_IMAGE).withRun { c ->
+                            docker.image("$CI_IMAGE").withRun { c ->
                                 sh "docker exec -i ${c.id} python -m locust -H http://127.0.0.1:8080 -f ./tests/performance.py --headless --print-stats --only-summary -u 100 -r 1 -t 1m"
                             }
                         }
@@ -61,7 +61,7 @@ pipeline {
                 stage('Testing Artifacts') {
                     steps {
                         script {
-                            docker.image($CI_IMAGE).withRun { c ->
+                            docker.image("$CI_IMAGE").withRun { c ->
                                 sh "docker exec -i ${c.id} python -m coverage run -m pytest --junitxml=reports/junit/junit.xml"
                                 sh "docker exec -i ${c.id} python -m coverage html -d reports/web"
                                 sh "docker cp ${c.id}:/app/reports ./reports"
@@ -76,8 +76,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build($NGINX_IMAGE, "-f ./infra/docker/$ROLE/nginx/Dockerfile .")
-                    docker.build($FLASK_IMAGE, "-f ./infra/docker/$ROLE/flask/Dockerfile .")
+                    docker.build("$NGINX_IMAGE", "-f ./infra/docker/$ROLE/nginx/Dockerfile .")
+                    docker.build("$FLASK_IMAGE", "-f ./infra/docker/$ROLE/flask/Dockerfile .")
                 }
             }
         }
@@ -85,8 +85,8 @@ pipeline {
         stage('Publish') {
             steps {
                 script {
-                    docker.image($NGINX_IMAGE).push()
-                    docker.image($FLASK_IMAGE).push()
+                    docker.image("$NGINX_IMAGE").push()
+                    docker.image("$FLASK_IMAGE").push()
                 }
             }
         }
