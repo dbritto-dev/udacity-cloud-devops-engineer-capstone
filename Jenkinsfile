@@ -19,13 +19,14 @@ pipeline {
             steps {
                 sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
                 script {
-                    docker.image('minorpatch/capstone-flask:ci').withRun { c ->
-                        echo c.id
+                    docker.image("minorpatch/capstone-flask:ci").withRun { c ->
                         sh "echo ${c.id}"
+                        sh "docker exec -i ${c.id} python -m pylint"
                     }
-                    docker.image('minorpatch/capstone-flask:ci').inside() {
-                        sh 'pwd'
-                        sh 'sudo netstat -tulpn'
+
+                    docker.image("minorpatch/capstone-flask:ci").inside() {
+                        sh "pwd"
+                        sh "netstat -tulpn"
                         // sh 'pip freeze'
                     }
                 }
@@ -37,25 +38,25 @@ pipeline {
             stages {
                 stage('Security Testing') {
                     steps {
-                        aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+                        aquaMicroscanner imageName: "alpine:latest", notCompliesCmd: "exit 1", onDisallowed: "fail", outputFormat: "html"
                     }
                 }
 
                 stage('General Testing') {
                     steps {
-                        sh 'make test'
+                        sh "make test"
                     }
                 }
 
                 stage('Performance Testing') {
                     steps {
-                        sh 'make performance-test'
+                        sh "make performance-test"
                     }
                 }
 
                 stage('Testing Artifacts') {
                     steps {
-                        sh 'make test-artifacts'
+                        sh "make test-artifacts"
                     }
                 }
             }
@@ -65,7 +66,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build('minorpatch/capstone-flask:$ROLE', '-f ./infra/docker/blue/flask/Dockerfile .')
+                    docker.build("minorpatch/capstone-flask:$ROLE", "-f ./infra/docker/blue/flask/Dockerfile .")
                 }
             }
         }
@@ -73,7 +74,7 @@ pipeline {
         stage('Publish') {
             steps {
                 script {
-                    docker.image('minorpatch/capstone-flask:$ROLE').push()
+                    docker.image("minorpatch/capstone-flask:$ROLE").push()
                 }
             }
         }
@@ -81,7 +82,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    sh 'make deploy'
+                    sh "make deploy"
                 }
             }
         }
@@ -89,8 +90,8 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'reports/web/**/*', allowEmptyArchive: true, fingerprint: true
-            junit 'reports/junit/**/*.xml'
+            archiveArtifacts artifacts: "reports/web/**/*", allowEmptyArchive: true, fingerprint: true
+            junit "reports/junit/**/*.xml"
         }
     }
 }
