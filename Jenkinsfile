@@ -10,18 +10,18 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    docker.build('minorpatch/capstone-flask:ci', '-f ./infra/docker/$ROLE/flask/ci/Dockerfile .')
+                    docker.build("minorpatch/capstone-flask:ci", "-f ./infra/docker/$ROLE/flask/ci/Dockerfile .")
                 }
             }
         }
 
         stage('Linting') {
             steps {
-                sh 'hadolint ./infra/docker/**/**/*/Dockerfile'
+                sh "hadolint ./infra/docker/$ROLE/**/Dockerfile"
                 script {
                     docker.image("minorpatch/capstone-flask:ci").withRun { c ->
                         sh "echo ${c.id}"
-                        sh "docker exec -i ${c.id} python -m pylint"
+                        sh "docker exec -i ${c.id} python -m flake code/"
                     }
 
                     docker.image("minorpatch/capstone-flask:ci").inside() {
