@@ -41,12 +41,12 @@ Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 
 # Pre-requisites
 
--   AWS CLI: (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
--   AWS IAM Roles for EKS: (https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html)
--   Jenkins: (https://www.jenkins.io/download/)
--   Docker: (https://docs.docker.com/engine/install/)
--   Kubernetes: (https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
--   EKSCTL: (https://eksctl.io/introduction/#installation)
+-   AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
+-   AWS IAM Roles for EKS: https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html
+-   Jenkins: https://www.jenkins.io/download/
+-   Docker: https://docs.docker.com/engine/install/
+-   Kubernetes: https://kubernetes.io/es/docs/tasks/tools/install-kubectl/
+-   EKSCTL: https://eksctl.io/introduction/#installation
 
 > **Note:** Jenkins needs Java to run. To install Java for jenkins run this 
 > command: `sudo apt install default-jdk -y` (only Debian distros)
@@ -79,21 +79,37 @@ $ aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
 
 **Plugins**
 
--   AWS Pipeline (https://plugins.jenkins.io/pipeline-aws)
--   Aqua MicroScanner: (https://plugins.jenkins.io/aqua-microscanner/)
--   BlueOcean: (https://plugins.jenkins.io/blueocean/), (https://plugins.jenkins.io/blueocean-executor-info/)
+-   AWS Pipeline: https://plugins.jenkins.io/pipeline-aws
+-   Aqua MicroScanner: https://plugins.jenkins.io/aqua-microscanner/
+-   BlueOcean: https://plugins.jenkins.io/blueocean/, https://plugins.jenkins.io/blueocean-executor-info/
 
 **Credentials**
 
--   Docker: Jenkins (Dashboard) -> Manage Jenkins -> Configure System -> Declarative Pipeline (Docker)
--   Kubernetes Config File: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
-    -   Kind: `Secret Text`
-    -   ID: `k8s-confige-file`
-    -   Secret: `/path/to/your/kubeconfig-file` **(only absolute path)** e.g: `/home/ubuntu/.kube/kubeconfig`
--   AWS: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
-    -   Kind: `AWS Credentials`
-    -   ID: `aws-creds`
-    -   Fill the other fields.
+-   **Docker (Steps):** 
+    1.  ➡️ Jenkins (Dashboard)
+    2.  ➡️ Manage Jenkins
+    3.  ➡️ Configure System
+    4.  ➡️ Declarative Pipeline (Docker)
+-   **Kubernetes Config File (Steps):**
+    1.  ➡️ Jenkins (Dashboard)
+    2.  ➡️ Job (github repo) 
+    3.  ➡️ Credentials
+    4.  ➡️ Store scoped to `<github-repo>`
+    5.  ➡️ Global
+    6.  ➡️ Add credentials
+        -   **Kind:** `Secret Text`
+        -   **ID:** `k8s-confige-file`
+        -   **Secret:** `/path/to/your/kubeconfig-file` **(absolute paths)** e.g: `/home/ubuntu/.kube/kubeconfig`
+-   **AWS (Steps):** 
+    1.  ➡️ Jenkins (Dashboard)
+    2.  ➡️ Job (github repo)
+    3.  ➡️ Credentials
+    4.  ➡️ Store scoped to `<github-repo>`
+    5.  ➡️ Global
+    6.  ➡️ Add credentials
+        -   **Kind:** `AWS Credentials`
+        -   **ID:** `aws-creds`
+        -   Fill the other fields.
 
 **Pipelines** 
 
