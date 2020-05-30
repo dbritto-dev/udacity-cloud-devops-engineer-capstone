@@ -86,7 +86,7 @@ $ aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
 **Credentials**
 
 -   Docker: Jenkins (Dashboard) -> Manage Jenkins -> Configure System -> Declarative Pipeline (Docker)
--   Kuberentes Config File: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
+-   Kubernetes Config File: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
     -   Kind: `Secret Text`
     -   ID: `k8s-confige-file`
     -   Secret: `/path/to/your/kubeconfig-file` **(only absolute path)** e.g: `/home/ubuntu/.kube/kubeconfig`
