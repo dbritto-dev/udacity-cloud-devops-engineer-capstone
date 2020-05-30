@@ -5,7 +5,7 @@ This application is used to implement all the knowledge acquired on the Cloud De
 Nano Degree on Udacity. The app has a simple api with two endpoints, the app is built it on top of 
 Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 
-**API URL:** `<your-api-url>` see the [Verifying](#verifying) section to get the url of your api.
+**API URL:** `<your-api-url>` (see the [Verifying](#verifying) section to get the url of your api).
 
 | Endpoints | Path           | Description                                                                             |
 | --------- | -------------- | --------------------------------------------------------------------------------------- |
@@ -129,7 +129,7 @@ $ kubectl apply -f ./infra/k8s/deployments/blue.yaml -f ./infra/k8s/services/blu
 
 To connect to your EC2 instance follow this guide: https://docs.aws.amazon.com/quickstarts/latest/vmlaunch/step-2-connect-to-instance.html
 
-### 1. Get the link to the appplication
+### 2. Get the link to the appplication
 
 To get the external ip of our service you can use the following command:
 
