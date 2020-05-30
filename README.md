@@ -20,9 +20,9 @@ Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 | `　　├── capstone/`                     | Python Flask App.                                                     |
 | `　　├── tests/`                        | Tests for the Python Flask App.                                       |
 | `　　├── .coveragerc`                   | Python Coverage configuration file.                                   |
-| `　　├── requirements-ci.text`          | Python dependencies file for Continuous Integration (CI).             |
-| `　　├── requirements-dev.text`         | Python dependencies file for development.                             |
-| `　　├── requirements.text`             | Python dependencies file for production.                              |
+| `　　├── requirements-ci.txt`           | Python dependencies file for Continuous Integration (CI).             |
+| `　　├── requirements-dev.txt`          | Python dependencies file for development.                             |
+| `　　├── requirements.txt`              | Python dependencies file for production.                              |
 | `　　└── run.py`                        | Python script to run the application.                                 |
 | `　　├── tox.ini`                       | Flask8 configuration file.                                            |
 | `├── infra/`                           | _This directory contains the files for docker and kubernetes._        |
