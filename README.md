@@ -23,8 +23,8 @@ Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 | `　　├── requirements-ci.txt`           | Python dependencies file for Continuous Integration (CI).             |
 | `　　├── requirements-dev.txt`          | Python dependencies file for development.                             |
 | `　　├── requirements.txt`              | Python dependencies file for production.                              |
-| `　　└── run.py`                        | Python script to run the application.                                 |
-| `　　├── tox.ini`                       | Flask8 configuration file.                                            |
+| `　　├── run.py`                        | Python script to run the application.                                 |
+| `　　└── tox.ini`                       | Flask8 configuration file.                                            |
 | `├── infra/`                           | _This directory contains the files for docker and kubernetes._        |
 | `　　├── docker/`                       | Docker files for blue and green images.                               |
 | `　　├── k8s/`                          | Kubernetes files for blue and green deployments.                      |
