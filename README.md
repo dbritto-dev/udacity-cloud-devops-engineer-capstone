@@ -5,7 +5,7 @@ This application is used to implement all the knowledge acquired on the Cloud De
 Nano Degree on Udacity. The app has a simple api with two endpoints, the app is built it on top of 
 Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 
-**API URL:** http://a75fd462e3fdd4b7eb3a06fdbf874795-1041551028.us-east-1.elb.amazonaws.com/
+**API URL:** `<your-api-url>` see the [Verifying](#verifying) section to get the url of your api.
 
 | Endpoints | Path           | Description                                                                             |
 | --------- | -------------- | --------------------------------------------------------------------------------------- |
@@ -121,7 +121,7 @@ $ kubectl apply -f ./infra/k8s/deployments/blue.yaml -f ./infra/k8s/services/blu
 ```
 
 > **Note:** This step require to access to your ec2 instance before. 
-> Check the (Verifying)[#verifying] section to get help.
+> Check the [Verifying](#verifying) section to get help.
 
 # Verifying
 
