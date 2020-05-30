@@ -27,7 +27,7 @@ Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 | `　　├── tox.ini`                       | Flask8 configuration file.                                            |
 | `├── infra/`                           | _This directory contains the files for docker and kubernetes._        |
 | `　　├── docker/`                       | Docker files for blue and green images.                               |
-| `　　├── k8s/`                          | Kubernetes files for blue and green deployment.                       |
+| `　　├── k8s/`                          | Kubernetes files for blue and green deployments.                      |
 | `　　└── server.yaml`                   | Template to create the cluster on Amazon EKS using EKSCTL.            |
 | `├── nginx/`                           | _This directory contains the files for a custom NGINX configuration._ |
 | `├── screenshots/`                     | _This directory contains the screenshots for the project validation._ |
@@ -48,30 +48,32 @@ Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 -   Kubernetes: (https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
 -   EKSCTL: (https://eksctl.io/introduction/#installation)
 
-> Note: Jenkins needs Java to run. To install Java for jenkins run this command: `sudo apt install default-jdk`
+> **Note:** Jenkins needs Java to run. To install Java for jenkins run this 
+> command: `sudo apt install default-jdk -y` (only Debian distros)
 
 
 # Setup
 
 ### 1. Create the Cluster
 
-To create a cluster we can use the following command.
+To create a cluster you can use the following command.
 
 ```sh
 $ eksctl create cluster -f ./infra/eks/cluster.yaml
 ```
 
-> Note: You can create the cluster manually following this guide: https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
+> **Note:** You can create the cluster manually following this guide: 
+> https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 
 ### 2. Create a Kubernetes config for Amazon EKS
 
-To create/update a Kubernetes config (kubeconfig) we can following command.
+To create/update a Kubernetes config (kubeconfig) you can use following command.
 
 ```sh
 $ aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
 ```
 
-> Note: Read more about kubeconfig files for EKS on: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+> **Note:** Read more about kubeconfig files for EKS on: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 
 ### 3. Configure Jenkins
 
@@ -87,13 +89,13 @@ $ aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
 -   Kuberentes Config File: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
     -   Kind: `Secret Text`
     -   ID: `k8s-confige-file`
-    -   Secret: `/path/to/your/kubeconfig-file` **(use an absolute path)** e.g: `/home/ubuntu/.kube/kubeconfig`
+    -   Secret: `/path/to/your/kubeconfig-file` **(only absolute path)** e.g: `/home/ubuntu/.kube/kubeconfig`
 -   AWS: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
     -   Kind: `AWS Credentials`
     -   ID: `aws-creds`
-    -   Complete the other fields.
+    -   Fill the other fields.
 
-**Pipeline** 
+**Pipelines** 
 
 To create a pipeline using `BlueOcean` follow this guide: https://www.jenkins.io/doc/book/blueocean/creating-pipelines/
 
@@ -101,8 +103,8 @@ To create a pipeline using `BlueOcean` follow this guide: https://www.jenkins.io
 
 **Automate deploys**
 
-You can trigger the deployments just pushing update the right branch. If you want to a blue deployment push your
-changes to the blue branch.
+You can trigger the deployments just pushing update the right branch. If you want to a `blue deployment` push your
+changes to the `blue branch`.
 
 **Manual deploys**
 
@@ -118,7 +120,8 @@ or
 $ kubectl apply -f ./infra/k8s/deployments/blue.yaml -f ./infra/k8s/services/blue.yaml
 ```
 
-> Note: This step require to access to your ec2 instance before. Check the Verifying section to get help.
+> **Note:** This step require to access to your ec2 instance before. 
+> Check the (Verifying)[#verifying] section to get help.
 
 # Verifying
 
@@ -128,7 +131,7 @@ To connect to your EC2 instance follow this guide: https://docs.aws.amazon.com/q
 
 ### 1. Get the link to the appplication
 
-To get the external ip of our service we can use the following command:
+To get the external ip of our service you can use the following command:
 
 ```sh
 $ kubectl get services -l app=capstone --output jsonpath='{.items[].status.loadBalancer.ingress[].hostname}'
@@ -143,3 +146,10 @@ or
 ```json
 {"message":"Hello BLUE APP!"}
 ```
+
+# Thanks to
+
+A big thanks to 
+
+* Udacity
+* Raul Hugo @RaulHugo
