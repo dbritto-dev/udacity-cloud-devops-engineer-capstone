@@ -1,104 +1,145 @@
 # Project Overview
 
-In this project, you will apply the skills you have acquired in this course to build a successfull
-CI/CD workflow.
+This application simplies the access to the covid 19 stats of the world (stats for each country). 
+This application is used to implement all the knowledge acquired on the Cloud DevOps Engineer
+Nano Degree on Udacity. The app has a simple api with two endpoints, the app is built it on top of 
+Python using `Flask` and `BeautifulSoup 4` (to scrape the data).
 
-The app get world stats for covid 19 for each country in the world. This project use Python Flask app.
+**API URL:** http://a75fd462e3fdd4b7eb3a06fdbf874795-1041551028.us-east-1.elb.amazonaws.com/
 
-Visit the app on http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/
+| Endpoints | Path           | Description                                                                             |
+| --------- | -------------- | --------------------------------------------------------------------------------------- |
+| GET       | `/`            | Returns a `Hello World!` message with the current state of the app (`blue` or `green`). |
+| GET       | `/world-stats` | Returns covid stats of the world.                                                       |
 
-## Endpoints:
+**PROJECT STRUCTURE**
 
--   Hello World! -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/
--   World Covid Stats -> http://a8b4bd8db124d4b6c82d61b144c3b6e3-215389831.us-east-1.elb.amazonaws.com/world-stats
+| File Name 　　　　　　　　　　　　　　 | Description 　　　　　　　                                                     |
+| :------------------------------------- | :-------------------------------------------------------------------- |
+| `├── code/`                            | _This directory contains the Python Flask app and Tests_              |
+| `　　├── capstone/`                     | Python Flask App.                                                     |
+| `　　├── tests/`                        | Tests for the Python Flask App.                                       |
+| `　　├── .coveragerc`                   | Python Coverage configuration file.                                   |
+| `　　├── requirements-ci.text`          | Python dependencies file for Continuous Integration (CI).             |
+| `　　├── requirements-dev.text`         | Python dependencies file for development.                             |
+| `　　├── requirements.text`             | Python dependencies file for production.                              |
+| `　　└── run.py`                        | Python script to run the application.                                 |
+| `　　├── tox.ini`                       | Flask8 configuration file.                                            |
+| `├── infra/`                           | _This directory contains the files for docker and kubernetes._        |
+| `　　├── docker/`                       | Docker files for blue and green images.                               |
+| `　　├── k8s/`                          | Kubernetes files for blue and green deployment.                       |
+| `　　└── server.yaml`                   | Template to create the cluster on Amazon EKS using EKSCTL.            |
+| `├── nginx/`                           | _This directory contains the files for a custom NGINX configuration._ |
+| `├── screenshots/`                     | _This directory contains the screenshots for the project validation._ |
+| `├── .editorconfig`                    | Configuration file for editorconfig.                                  |
+| `├── .gitignore`                       | Configuration file for gitignore.                                     |
+| `├── Jenkinsfile`                      | Configuration file for Jenkins Pipelines.                             |
+| `├── Makefile`                         | Set of custom scripts.                                                |
+| `├── README.md`                        | Description of the app.                                               |
+| `└── TODO.md`                          | Project TODO.                                                         |
 
-## Project Structure
 
-| File Name 　　　　　　　　　　　　　　 | Description 　　　　　　　                                           |
-| :------------------------------------- | :------------------------------------------------------------------- |
-| `├── code/`                            | _This directory contains the Python Flask app and Tests_             |
-| `　　├── capstone/`                     | Python code                                                          |
-| `　　├── tests/`                        | Tests                                                                |
-| `　　├── .coveragerc`                   | Coverage configuration file                                          |
-| `　　├── .pylintrc`                     | Pylint configuration file                                            |
-| `　　├── requirements-ci.text`          | Python dependencies file for Continuous Integration (CI)             |
-| `　　├── requirements-dev.text`         | Python dependencies file for development                             |
-| `　　├── requirements.text`             | Python dependencies file for production                              |
-| `　　└── run.py`                        | Python script to run the application                                 |
-| `├── infra/`                           | _This directory contains the files for docker and kubernetes_        |
-| `　　├── docker/`                       | Docker files for blue and green deployment                           |
-| `　　├── k8s/`                          | Kubernetes files for blue and green deployment                       |
-| `　　└── server.yaml`                   | Template to create the cluster on Amazon EKS using EKSCTL            |
-| `├── nginx/`                           | _This directory contains the files for a custom NGINX configuration_ |
-| `├── screenshots/`                     | _This directory contains the files of the screenshots_               |
-| `├── .editorconfig`                    | Configuration file for editorconfig                                  |
-| `├── .gitignore`                       | Configuration file for gitignore                                     |
-| `├── Jenkinsfile`                      | Configuration file for Jenkins Pipelines                             |
-| `├── Makefile`                         | Set of custom scripts                                                |
-| `├── README.md`                        | Description of the app                                               |
-| `└── TODO.md`                          | Project TODO                                                         |
+# Pre-requisites
 
-## Project Tasks
+-   AWS CLI: (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+-   AWS IAM Roles for EKS: (https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html)
+-   Jenkins: (https://www.jenkins.io/download/)
+-   Docker: (https://docs.docker.com/engine/install/)
+-   Kubernetes: (https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
+-   EKSCTL: (https://eksctl.io/introduction/#installation)
 
--   Setup `Jenkins` to deploy `Kubernetes` apps on `Amazon EKS`.
--   Use `Docker` to containerized the application.
--   Use `Kubernetes` to Orchestrated the application.
--   Use `Jenkins` to `Linting`, `Testing`, and `Building` the application.
--   Use `Jenkins` to automate the `Blue-Green Deployment`.
+> Note: Jenkins needs Java to run. To install Java for jenkins run this command: `sudo apt install default-jdk`
 
----
 
-## Setup Environment
+# Setup
 
-### Kubernetes Steps
+### 1. Create the Cluster
 
--   Setup and configure IAM Roles (https://docs.aws.amazon.com/eks/latest/userguide/security_iam_service-with-iam.html)
--   Setup and configure AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
--   Setup and configure Docker (https://docs.docker.com/engine/install/)
--   setup and configure Kubernetes (https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
--   Setup EKSCTL (https://eksctl.io/introduction/#installation)
--   Setup Hadolint (https://github.com/hadolint/hadolint#install)
-
-#### 5. Configure Kubernetes to Run Locally
-
--   Install Kubernetes (https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)
--   Install Minikube (https://kubernetes.io/docs/tasks/tools/install-minikube/)
-
-### Jenkins Steps
-
--   Setup and configure Aqua MicroScanner (https://plugins.jenkins.io/aqua-microscanner/)
--   Setup Pipeline AWS (https://plugins.jenkins.io/pipeline-aws/)
--   Setup BlueOcean (https://plugins.jenkins.io/blueocean/) and (https://plugins.jenkins.io/blueocean-executor-info/)
--   Create Credentials:
-    -   Secret Texts
-        -   Docker User -> `ID`: docker-user, `Secret`: `<your-docker-user>`
-        -   Docker Password -> `ID`: docker-password, `Secret`: `<your-docker-password>`
-        -   K8S Config File Path -> `ID`: k8s-config-file, `Secret`: /home/ubuntu/.kube/kubeconfig (an example)
-    -   AWS Credentials
-        -   AWS Credentials -> `ID`: aws-creds, `Access Key ID`: `<access-key-id>`, `Secret Access Key`: `<secret-access-key>`
-
-### Create a cluster
-
-```
-$ eksctl create cluster -f ./infra/server.yaml
-```
-
-### Running the app
+To create a cluster we can use the following command.
 
 ```sh
-$ kubectl apply -f ./infra/k8s/deployments/<stage>.yaml
-$ kubectl apply -f ./infra/k8s/services/<stage>.yaml
+$ eksctl create cluster -f ./infra/eks/cluster.yaml
 ```
 
-e.g: stage -> blue
+> Note: You can create the cluster manually following this guide: https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
+
+### 2. Create a Kubernetes config for Amazon EKS
+
+To create/update a Kubernetes config (kubeconfig) we can following command.
+
+```sh
+$ aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
+```
+
+> Note: Read more about kubeconfig files for EKS on: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+
+### 3. Configure Jenkins
+
+**Plugins**
+
+-   AWS Pipeline (https://plugins.jenkins.io/pipeline-aws)
+-   Aqua MicroScanner: (https://plugins.jenkins.io/aqua-microscanner/)
+-   BlueOcean: (https://plugins.jenkins.io/blueocean/), (https://plugins.jenkins.io/blueocean-executor-info/)
+
+**Credentials**
+
+-   Docker: Jenkins (Dashboard) -> Manage Jenkins -> Configure System -> Declarative Pipeline (Docker)
+-   Kuberentes Config File: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
+    -   Kind: `Secret Text`
+    -   ID: `k8s-confige-file`
+    -   Secret: `/path/to/your/kubeconfig-file` **(use an absolute path)** e.g: `/home/ubuntu/.kube/kubeconfig`
+-   AWS: Jenkins (Dashboard) -> Job (github repo) -> Credentials -> Store scoped to `<github-repo>` -> global -> Add credentials
+    -   Kind: `AWS Credentials`
+    -   ID: `aws-creds`
+    -   Complete the other fields.
+
+**Pipeline** 
+
+To create a pipeline using `BlueOcean` follow this guide: https://www.jenkins.io/doc/book/blueocean/creating-pipelines/
+
+# Deploying
+
+**Automate deploys**
+
+You can trigger the deployments just pushing update the right branch. If you want to a blue deployment push your
+changes to the blue branch.
+
+**Manual deploys**
+
+You can trigger manual deploy using the following command: 
 
 ```
 $ kubectl apply -f ./infra/k8s/deployments/blue.yaml
 $ kubectl apply -f ./infra/k8s/services/blue.yaml
 ```
+or
 
-> Note: The <stage> can be `blue` or `green` for Blue-Green Deployments.
+```sh
+$ kubectl apply -f ./infra/k8s/deployments/blue.yaml -f ./infra/k8s/services/blue.yaml
+```
 
-### GitOps
+> Note: This step require to access to your ec2 instance before. Check the Verifying section to get help.
 
-To trigger updates push your changes to the right branch.
+# Verifying
+
+### 1. Connect to the EC2 instance using ssh
+
+To connect to your EC2 instance follow this guide: https://docs.aws.amazon.com/quickstarts/latest/vmlaunch/step-2-connect-to-instance.html
+
+### 1. Get the link to the appplication
+
+To get the external ip of our service we can use the following command:
+
+```sh
+$ kubectl get services -l app=capstone --output jsonpath='{.items[].status.loadBalancer.ingress[].hostname}'
+```
+
+With the link you can access to the app. If all is working yo can see a message like this:
+
+```json
+{"message":"Hello GREEN APP!"}
+```
+or
+```json
+{"message":"Hello BLUE APP!"}
+```
