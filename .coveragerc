@@ -4,13 +4,13 @@ omit =
     # omit anything in a .local directory anywhere
     */.local/*
     # omit other files for testing and running
-    run.py
-    tests/performance.py
+    code/run.py
+    code/tests/performance.py
 
 [report]
 omit =
     # omit anything in a .local directory anywhere
     */.local/*
     # omit other files for testing and running
-    run.py
-    tests/performance.py
+    code/run.py
+    code/tests/performance.py
