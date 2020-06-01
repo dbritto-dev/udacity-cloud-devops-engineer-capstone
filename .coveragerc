@@ -1,5 +1,6 @@
 [run]
 branch = True
+source = code
 omit =
     # omit anything in a .local directory anywhere
     */.local/*
