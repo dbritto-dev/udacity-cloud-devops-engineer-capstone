@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: capstone-git
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/danilobrinu/udacity-cloud-devops-engineer-project-5
+    - name: revision
+      value: tekton

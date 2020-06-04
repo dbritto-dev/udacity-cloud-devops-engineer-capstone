@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: code-coverage
+spec:
+  resources:
+    inputs:
+      - name: git-source
+        type: git
+  params:
+    - name: python-image
+      type: string
+      default: python:3.7-alpine
+  steps:
+    - name: coverage
+      image: $(params.python-image)
+      workingDir: $(resources.inputs.git-source.path)
+      script: |
+        python -m pip install flask beautifulsoup4 pytest coverage
+        python -m coverage run -m pytest
+        python -m coverage report --fail-under 75

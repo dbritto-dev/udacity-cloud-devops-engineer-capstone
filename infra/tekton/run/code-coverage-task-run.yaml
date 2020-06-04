@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: code-coverage-run-
+spec:
+  taskRef:
+    name: code-coverage
+  resources:
+    inputs:
+      - name: git-source
+        resourceRef:
+          name: capstone-git
+  params:
+    - name: python-image
+      value: python:3-alpine

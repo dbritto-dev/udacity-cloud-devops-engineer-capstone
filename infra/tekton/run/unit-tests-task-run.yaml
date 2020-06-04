@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: unit-tests-run-
+spec:
+  taskRef:
+    name: unit-tests
+  resources:
+    inputs:
+      - name: git-source
+        resourceRef:
+          name: capstone-git
+  params:
+    - name: python-image
+      value: python:3-alpine
