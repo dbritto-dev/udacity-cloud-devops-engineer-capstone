@@ -26,9 +26,9 @@ spec:
       args:
         - build
         - --tag
-        - $(resources.inputs.nginx-image.url)
+        - $(resources.outputs.nginx-image.url)
         - --file
-        - infra/docker/blue/nginx/Dockerfile
+        - $(params.nginx-dockerfile)
         - .
       volumeMounts:
         - name: docker-socket
@@ -36,22 +36,24 @@ spec:
       env:
         - name: DOCKER_TLS_CERTDIR
           value: /certs
-    # - name: build-nginx-image
-    #   image: gcr.io/kaniko-project/executor:latest
-    #   workingDir: $(resources.inputs.git-source.path)
-    #   args:
-    #     - --context=$(resources.inputs.git-source.path)
-    #     - --dockerfile=$(params.nginx-dockerfile)
-    #     - --destination=$(resources.outputs.nginx-image.url)
-    #     - --no-push
-    # - name: build-flask-image
-    #   image: gcr.io/kaniko-project/executor:latest
-    #   workingDir: $(resources.inputs.git-source.path)
-    #   args:
-    #     - --context=$(resources.inputs.git-source.path)
-    #     - --dockerfile=$(params.flask-dockerfile)
-    #     - --destination=$(resources.outputs.flask-image.url)
-    #     - --no-push
+    - name: build-flask-image
+      image: docker:dind
+      securityContext:
+        privileged: true
+      workingDir: $(resources.inputs.git-source.path)
+      args:
+        - build
+        - --tag
+        - $(resources.outputs.flask-image.url)
+        - --file
+        - $(params.flask-dockerfile)
+        - .
+      volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      env:
+        - name: DOCKER_TLS_CERTDIR
+          value: /certs
   volumes:
     - name: docker-socket
       hostPath:

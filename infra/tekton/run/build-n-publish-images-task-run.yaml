@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: build-n-publish-images-run-
+spec:
+  taskRef:
+    name: build-n-publish-images
+  resources:
+    inputs:
+      - name: git-source
+        resourceRef:
+          name: capstone-git
+    outputs:
+      - name: nginx-image
+        resourceRef:
+          name: capstone-nginx-image
+      - name: flask-image
+        resourceRef:
+          name: capstone-flask-image
+  params:
+    - name: nginx-dockerfile
+      value: ./infra/docker/blue/nginx/Dockerfile
+    - name: flask-dockerfile
+      value: ./infra/docker/blue/flask/Dockerfile
