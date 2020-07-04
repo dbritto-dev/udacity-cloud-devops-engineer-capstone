@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy
+spec:
+  resources:
+    inputs:
+      - name: git-source
+        type: git
+  params:
+    - name: k8sfile
+      type: string
+  steps:
+    - name: deploy
+      image: lachlanevenson/k8s-kubectl
+      securityContext:
+        privileged: true
+      workingDir: $(resources.inputs.git-source.path)
+      command: ["kubectl"]
+      args:
+        - apply
+        - -f
+        - $(params.k8sfile)
