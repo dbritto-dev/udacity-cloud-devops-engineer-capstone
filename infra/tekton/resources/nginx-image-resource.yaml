@@ -6,4 +6,4 @@ spec:
   type: image
   params:
     - name: url
-      value: minorpatch/capstone-nginx:blue
+      value: minorpatch/capstone-nginx:tekton
