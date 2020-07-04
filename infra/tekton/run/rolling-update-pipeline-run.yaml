@@ -5,4 +5,22 @@ metadata:
 spec:
   pipelineRef:
     name: rolling-update
-
+  resources:
+    - name: git-source
+      resourceRef:
+        name: capstone-git
+    - name: nginx-image
+      resourceRef:
+        name: capstone-nginx-image
+    - name: flask-image
+      resourceRef:
+        name: capstone-flask-image
+  params:
+    - name: python-image
+      value: python:3.7-alpine
+    - name: nginx-dockerfile
+      value: ./infra/docker/blue/nginx/Dockerfile
+    - name: flask-dockerfile
+      value: ./infra/docker/blue/flask/Dockerfile
+    - name: k8sfile
+      value: ./infra/k8s/rolling/
