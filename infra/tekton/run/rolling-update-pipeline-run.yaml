@@ -1,0 +1,8 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: rolling-update-run-
+spec:
+  pipelineRef:
+    name: rolling-update
+
