@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-rolling-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: capstone
+      role: rolling
+  template:
+    metadata:
+      labels:
+        app: capstone
+        role: rolling
+    spec:
+      containers:
+        - name: nginx
+          image: minorpatch/capstone-nginx:green
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+        - name: flask
+          image: minorpatch/capstone-flask:green
+          imagePullPolicy: "Always"
+          env:
+            - name: APP_NAME
+              value: "BLUE APP"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
