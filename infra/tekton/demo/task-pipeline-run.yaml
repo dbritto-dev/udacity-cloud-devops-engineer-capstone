@@ -1,0 +1,7 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: echo-run-
+spec:
+  pipelineRef:
+    name: echo
