@@ -1,0 +1,86 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: rolling-update
+spec:
+  resources:
+    - name: git-source
+      type: git
+    - name: nginx-image
+      type: image
+    - name: flask-image
+      type: image
+  params:
+    - name: python-image
+      type: string
+      default: python:alpine
+    - name: nginx-dockerfile
+      type: string
+    - name: flask-dockerfile
+      type: string
+    - name: k8sfile
+      type: string
+  tasks:
+    - name: linting
+      taskRef:
+        name: linting
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+      params:
+        - name: python-image
+          value: $(params.python-image)
+    - name: unit-tests
+      taskRef:
+        name: unit-tests
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+      params:
+        - name: python-image
+          value: $(params.python-image)
+    - name: code-coverage
+      taskRef:
+        name: code-coverage
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+      params:
+        - name: python-image
+          value: $(params.python-image)
+    - name: build-and-publish-images
+      taskRef:
+        name: build-n-publish-images
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+        outputs:
+          - name: nginx-image
+            resource: nginx-image
+          - name: flask-image
+            resource: flask-image
+      params:
+        - name: nginx-dockerfile
+          value: $(params.nginx-dockerfile)
+        - name: flask-dockerfile
+          value: $(params.flask-dockerfile)
+      runAfter:
+        - linting
+        - unit-tests
+        - code-coverage
+    - name: deploy-to-k8s
+      taskRef:
+        name: deploy
+      resources:
+        inputs:
+          - name: git-source
+            resource: git-source
+      params:
+        - name: k8sfile
+          value: $(params.k8sfile)
+      runAfter:
+        - build-and-publish-images
