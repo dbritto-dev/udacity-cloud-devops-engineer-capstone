@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: deploy-run-
+spec:
+  taskRef:
+    name: deploy
+  resources:
+    inputs:
+      - name: git-source
+        resourceRef:
+          name: capstone-git
+  params:
+    - name: k8sfile
+      value: ./infra/k8s/rolling/
